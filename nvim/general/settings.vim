@@ -31,6 +31,9 @@ set timeoutlen=500							" By default, timeout length is 1000ms
 
 set formatoptions-=cro					" Stop newline continuation of comments
 set clipboard=unnamedplus				" Copy and paste between vim and everything else
+if has('win32')
+  source $VIMRUNTIME/mswin.vim  " Fixes issues with ctrl+c/v for copy and paste.
+endif
 
 " Automatically source when writing to init.vim
 au! BufWritePost $MYVIMRC source %

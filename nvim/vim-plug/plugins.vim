@@ -1,11 +1,8 @@
 
 call plug#begin('~/.config/nvim/autoload/plugged')
-  " Better Syntax Support
-  Plug 'sheerun/vim-polyglot'
-  " Autopairs for '(' '[' '{'
-  Plug 'jiangmiao/auto-pairs'
-  " Theming
-  Plug 'morhetz/gruvbox'
-  " Fuzzy finder
-  Plug 'ctrlpvim/ctrlp.vim'
+  Plug 'sheerun/vim-polyglot'   " Better Syntax Support
+  Plug 'jiangmiao/auto-pairs'   " Autopairs for '(' '[' '{'
+  Plug 'tpope/vim-surround'     " Surrounding pairs
+  Plug 'morhetz/gruvbox'        " Gruvbox theme
+  Plug 'ctrlpvim/ctrlp.vim'     " Fuzzy finder
 call plug#end()
