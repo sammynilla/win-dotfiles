@@ -29,16 +29,19 @@ end
 return packer.startup(function(use)
   -- My plugins here
   use 'wbthomason/packer.nvim'  -- Package management [lua]
+  -- use 'nvim-lua/plenary.nvim'   -- Common Neovim modules [lua]
   use 'rebelot/kanagawa.nvim'   -- Color theme  [lua]
-  --use 'lunarvim/darkplus.nvim'
   use 'windwp/nvim-autopairs'   -- Autopairs    [lua]
+  use 'lukas-reineke/indent-blankline.nvim' -- Whitespace and indents [lua]
   use 'ctrlpvim/ctrlp.vim'      -- Fuzzy finder [vim]
-  -- Treesitter [lua]
+  -- Syntax Highlighting
   use {
     -- On first run, :TSUpdate takes a while to install 
-    'nvim-treesitter/nvim-treesitter',
+    'nvim-treesitter/nvim-treesitter', -- [lua]
     run = ':TSUpdate',
   }
+  -- Git
+  -- use 'lewis6991/gitsigns.nvim' -- [lua]
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
