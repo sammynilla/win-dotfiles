@@ -28,8 +28,17 @@ end
 
 return packer.startup(function(use)
   -- My plugins here
-  use 'wbthomason/packer.nvim'  -- Package management
-  use 'rebelot/kanagawa.nvim'   -- Color theme
+  use 'wbthomason/packer.nvim'  -- Package management [lua]
+  use 'rebelot/kanagawa.nvim'   -- Color theme  [lua]
+  --use 'lunarvim/darkplus.nvim'
+  use 'windwp/nvim-autopairs'   -- Autopairs    [lua]
+  use 'ctrlpvim/ctrlp.vim'      -- Fuzzy finder [vim]
+  -- Treesitter [lua]
+  use {
+    -- On first run, :TSUpdate takes a while to install 
+    'nvim-treesitter/nvim-treesitter',
+    run = ':TSUpdate',
+  }
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
