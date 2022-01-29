@@ -23,7 +23,7 @@ local ignored_languages = {
   'r', 'rasi', 'rst', 'ruby', 'rust',
   'scala', 'sparql', 'supercollider', 'surface', 'svelte',
   'teal', 'tlaplus', 'toml', 'tsx', 'turtle', 'typescript',
-  'verilog', 'vue',
+  'vala', 'verilog', 'vue',
   'yaml', 'yang',
   'zig'
 }
@@ -36,5 +36,8 @@ configs.setup({
     enable = true,
     disable = {''},
     additional_vim_regex_highlighting = true, -- ??
+  },
+  context_commentstring = {
+    enable = true,
   },
 })

@@ -34,12 +34,14 @@ return packer.startup(function(use)
   use 'windwp/nvim-autopairs'   -- Autopairs    [lua]
   use 'lukas-reineke/indent-blankline.nvim' -- Whitespace and indents [lua]
   use 'ctrlpvim/ctrlp.vim'      -- Fuzzy finder [vim]
-  -- Syntax Highlighting
+  use 'tpope/vim-commentary'    -- Comments [vim]
+  -- Treesitter
   use {
     -- On first run, :TSUpdate takes a while to install 
-    'nvim-treesitter/nvim-treesitter', -- [lua]
+    'nvim-treesitter/nvim-treesitter', -- Syntax Highlighting [lua]
     run = ':TSUpdate',
   }
+  use 'JoosepAlviste/nvim-ts-context-commentstring' 
   -- Git
   -- use 'lewis6991/gitsigns.nvim' -- [lua]
 
