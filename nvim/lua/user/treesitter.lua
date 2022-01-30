@@ -5,15 +5,15 @@ end
 
 local ignored_languages = {
   'beancount', 'bibtex',
-  'clojure', 'commonlisp', 'cuda',
+  'c_sharp', 'clojure', 'commonlisp', 'cuda',
   'd', 'dart', 'devicetree', 'dockerfile', 'dot',
   'eex', 'elixir', 'erlang',
   'fennel', 'fish', 'foam', 'fusion',
   'gdscript', 'glimmer',
   'ember',
-  'go', 'gdresource', 'gomod', 'gowork',
+  'gdscript', 'gdresource', 'glimmer', 'go', 'gomod', 'gowork',
   'hcl', 'heex', 'hjson', 'hocon',
-  'java', 'julia',
+  'java', 'jsdoc', 'jsonc', 'julia',
   'kotlin',
   'latex', 'ledger',
   'nix', 'norg',
