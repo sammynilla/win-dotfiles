@@ -7,7 +7,7 @@ local keymap = vim.api.nvim_set_keymap
 --  insert_mode = "i"
 --  visual_mode = "v"
 --  visual_block_mode = "x"
---  term_mode = "t"
+--  terminal_mode = "t"
 --  command_mode = "c"
 
 -- Normal --
@@ -67,4 +67,13 @@ local visual_block_mode = {
 
 for key, val in pairs(visual_block_mode) do
   keymap('x', key, val, opts)
+end
+
+-- Terminal --
+local terminal_mode = {
+  ['<ESC>'] = [[<C-\><C-n>:bd!<CR>]],
+}
+
+for key, val in pairs(terminal_mode) do
+  keymap('t', key, val, opts)
 end
