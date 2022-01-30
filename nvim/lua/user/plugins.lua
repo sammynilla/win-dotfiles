@@ -29,7 +29,8 @@ end
 return packer.startup(function(use)
   -- My plugins here
   use 'wbthomason/packer.nvim'  -- Package management [lua]
-  -- use 'nvim-lua/plenary.nvim'   -- Common Neovim modules [lua]
+  use 'nvim-lua/plenary.nvim'   -- Common Neovim modules [lua]
+  use 'dstein64/vim-startuptime'-- Vim startup profiling [vim]
   use 'rebelot/kanagawa.nvim'   -- Color theme  [lua]
   use 'windwp/nvim-autopairs'   -- Autopairs    [lua]
   use 'lukas-reineke/indent-blankline.nvim' -- Whitespace and indents [lua]
@@ -43,8 +44,12 @@ return packer.startup(function(use)
   }
   use 'JoosepAlviste/nvim-ts-context-commentstring' 
   -- Git
-  -- use 'lewis6991/gitsigns.nvim' -- [lua]
-
+  use {
+    'lewis6991/gitsigns.nvim', -- [lua]
+    requires = {
+      'nvim-lua/plenary.nvim',
+    },
+  }
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then
