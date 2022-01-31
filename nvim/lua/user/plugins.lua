@@ -28,14 +28,15 @@ end
 
 return packer.startup(function(use)
   -- My plugins here
-  use 'wbthomason/packer.nvim'  -- Package management [lua]
-  use 'nvim-lua/plenary.nvim'   -- Common Neovim modules [lua]
-  use 'dstein64/vim-startuptime'-- Vim startup profiling [vim]
-  use 'rebelot/kanagawa.nvim'   -- Color theme  [lua]
-  use 'windwp/nvim-autopairs'   -- Autopairs    [lua]
+  use 'wbthomason/packer.nvim'    -- Package management [lua]
+  use 'nvim-lua/plenary.nvim'     -- Common Neovim modules [lua]
+  use 'dstein64/vim-startuptime'  -- Vim startup profiling [vim]
+  use 'rebelot/kanagawa.nvim'     -- Color theme  [lua]
+  use 'windwp/nvim-autopairs'     -- Autopairs    [lua]
   use 'lukas-reineke/indent-blankline.nvim' -- Whitespace and indents [lua]
-  use 'ctrlpvim/ctrlp.vim'      -- Fuzzy finder [vim]
-  use 'tpope/vim-commentary'    -- Comments [vim]
+  use 'ctrlpvim/ctrlp.vim'        -- Fuzzy finder [vim]
+  use 'tpope/vim-commentary'      -- Comments [vim]
+  use 'nvim-lualine/lualine.nvim' -- Status Line [lua]
   -- Treesitter
   use {
     -- On first run, :TSUpdate takes a while to install 
