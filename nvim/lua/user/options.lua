@@ -1,41 +1,83 @@
--- :help options
-local options = {
-  backup = false,
-  clipboard = 'unnamedplus',
-  cmdheight = 2,
-  conceallevel = 0,
-  fileencoding = 'utf-8',
-  hlsearch = false,
-  ignorecase = true,
-  mouse = 'a',
-  pumheight = 10,
-  showmode = false,
-  smartcase = true, -- ??
-  smartindent = true,
-  splitbelow = true,
-  splitright = true,
-  swapfile = false,
-  -- termguicolors = true,
-  timeoutlen = 500,
-  undofile = true,
-  updatetime = 300,
-  expandtab = true,
-  shiftwidth = 2,
-  tabstop = 2,
-  cursorline = false,
-  number = true,
-  relativenumber = false,
-  signcolumn = 'yes',
-  wrap = false,
-  -- scrolloff = 8      -- ??
-  -- sidescrolloff = 8  -- ??
-}
 
-for key, val in pairs(options) do
-  vim.opt[key] = val
-end
+-----------------------------------------------------------
+-- Neovim API aliases
+-----------------------------------------------------------
+local cmd = vim.cmd
+local fn = vim.fn
+local opt = vim.opt
+local g = vim.g
+
+-----------------------------------------------------------
+-- General
+-----------------------------------------------------------
+opt.mouse = 'a'
+opt.clipboard = 'unnamedplus'
+-- https://medium.com/@Aenon/vim-swap-backup-undo-git-2bf353caa02f
+opt.swapfile = false
+opt.backup = false
+opt.writebackup = false
+opt.undofile = true
+
+opt.fileencoding = 'utf-8'
+opt.timeoutlen = 500
+opt.updatetime = 300
+opt.wrap = false
 
 -- Fix ctrl+c/v copy and paste on windows
-if vim.fn.has('win32') == 1 then
-  vim.cmd('source $VIMRUNTIME/mswin.vim')
+if fn.has('win32') == 1 then
+  cmd [[source $VIMRUNTIME/mswin.vim]]
 end
+
+-----------------------------------------------------------
+-- Neovim UI
+-----------------------------------------------------------
+opt.number = true
+opt.relativenumber = false
+opt.showmode = false
+opt.cmdheight = 2
+opt.pumheight = 10
+opt.colorcolumn = '80'
+opt.cursorline = false
+opt.splitright = true
+opt.splitbelow = true
+
+-----------------------------------------------------------
+-- Tabs, indents, comments
+-----------------------------------------------------------
+opt.expandtab = true
+opt.shiftwidth = 2
+opt.tabstop = 2
+opt.smartindent = true
+
+-- Don't auto comment new lines
+cmd [[au BufEnter * set fo-=c fo-=r fo-=o]]
+
+-----------------------------------------------------------
+-- Search, fuzzy search
+-----------------------------------------------------------
+opt.hlsearch = false
+opt.ignorecase = true   -- ignore case letters when search
+opt.smartcase = true    -- ignore lowercase for the whole pattern
+
+-- CTRL+P ignore all files within a project's .gitignore
+g.ctrlp_user_command = {
+  '.git', 
+  'cd %s && git ls-files -co --exclude-standard'
+}
+
+-----------------------------------------------------------
+-- Terminal
+-----------------------------------------------------------
+-- cmd [[command Term :botright vsplit term://cmd.exe]]
+-- Terminal visual tweaks
+-- enter insert mode when switching to terminal
+cmd [[
+  autocmd TermOpen * setlocal listchars= nonumber norelativenumber nocursorline
+  autocmd TermOpen * startinsert
+]]
+
+-----------------------------------------------------------
+-- Startup
+-----------------------------------------------------------
+-- disable nvim intro
+opt.shortmess:append 'sI'
