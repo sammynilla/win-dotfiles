@@ -6,6 +6,5 @@ require 'user.treesitter'
 require 'user.autopairs'
 require 'user.indentline'
 require 'user.gitsigns'
-require 'user.lualine'
-
+-- require 'user.lualine'
 require 'user.extras.yankhl'

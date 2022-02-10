@@ -43,7 +43,7 @@ return packer.startup(function(use)
   use 'lukas-reineke/indent-blankline.nvim' -- Whitespace and indents [lua]
   use 'ctrlpvim/ctrlp.vim'        -- Fuzzy finder [vim]
   use 'tpope/vim-commentary'      -- Comments [vim]
-  use 'nvim-lualine/lualine.nvim' -- Status Line [lua]
+  -- use 'nvim-lualine/lualine.nvim' -- Status Line [lua]
   -- Treesitter
   use {
     -- On first run, :TSUpdate takes a while to install
