@@ -1,72 +1,82 @@
+-----------------------------------------------------------
+-- Keymaps configuration file
+-- Keymaps of neovim and plugins.
+-----------------------------------------------------------
+
+-----------------------------------------------------------
+--                    - Input Modes -
+-- ────────┬────────┬────────┬────────┬──────────┬─────────
+--  Normal │ Insert │ Visual │ VBlock │ Terminal │ Command
+-- ────────┼────────┼────────┼────────┼──────────┼─────────
+--   'n'   │  'i'   │  'v'   │  'x'   │   't'    │   'c'
+-----------------------------------------------------------
+
+local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
 
-local keymap = vim.api.nvim_set_keymap
+-----------------------------------------------------------
+-- Neovim shortcuts:
+-----------------------------------------------------------
 
--- Modes
---  normal_mode = "n"
---  insert_mode = "i"
---  visual_mode = "v"
---  visual_block_mode = "x"
---  terminal_mode = "t"
---  command_mode = "c"
+-- Prevent myself from using arrow keys.
+map('', '<Up>',     '<nop>',  { noremap = true })
+map('', '<Down>',   '<nop>',  { noremap = true })
+map('', '<Left>',   '<nop>',  { noremap = true })
+map('', '<Right>',  '<nop>',  { noremap = true })
 
--- Normal --
-local normal_mode = {
-  -- Window Navigation
+local n = {
+  -- Move around buffer splits with Ctrl + {h,j,k,l}
   ['<C-h>'] = '<C-w>h',
   ['<C-j>'] = '<C-w>j',
   ['<C-k>'] = '<C-w>k',
   ['<C-l>'] = '<C-w>l',
-  -- Resize with arrows
+  -- Resize buffer splits with Ctrl + arrow
   ['<C-Up>'] = ':resize -2<CR>',
   ['<C-Down>'] = ':resize +2<CR>',
   ['<C-Left>'] = ':vertical resize -2<CR>',
   ['<C-Right>'] = ':vertical resize +2<CR>',
-  -- Navigate buffers
-  ['<S-l>'] = ':bnext<CR>',
+  -- Navigate buffers with Shift + {h,l}
   ['<S-h>'] = ':bprevious<CR>',
+  ['<S-l>'] = ':bnext<CR>',
 }
 
-for key, val in pairs(normal_mode) do
-  keymap('n', key, val, opts)
+for key, val in pairs(n) do
+  map('n', key, val, opts)
 end
 
--- Insert --
-local insert_mode = {
-  -- Avoid using escape
+local i = {
+  -- Prevent myself from using Escape.
   ['kj'] = '<ESC>',
 }
 
-for key, val in pairs(insert_mode) do
-  keymap('i', key, val, opts)
+for key, val in pairs(i) do
+  map('i', key, val, opts)
 end
 
--- Visual --
-local visual_mode = {
-  -- Stay in indent mode
+local v = {
+  -- Shift indents in visual mode 
   ['<'] = '<gv',
   ['>'] = '>gv',
-  -- Move text up and down
+  -- Move selected text from cursor up and down using Alt + {j,k}
   ['<A-j>'] = ':m .+1<CR>==',
   ['<A-k>'] = ':m .-2<CR>==',
   -- Stop paste from yanking old text
   ['p'] = '_dP',
 }
 
-for key, val in pairs(visual_mode) do
-  keymap('v', key, val, opts)
+for key, val in pairs(v) do
+  map('v', key, val, opts)
 end
 
 -- Visual Block --
 local visual_block_mode = {
-  ['J'] = [[:move '>+1<CR>gv-gv]],
-  ['K'] = [[:move '<-2<CR>gv-gv]],
+  -- Move selected text from cursor up and down using Alt + {j,k}
   ['<A-j>'] = [[:move '>+1<CR>gv-gv]],
   ['<A-k>'] = [[:move '<-2<CR>gv-gv]],
 }
 
 for key, val in pairs(visual_block_mode) do
-  keymap('x', key, val, opts)
+  map('x', key, val, opts)
 end
 
 -- Terminal --
@@ -75,5 +85,5 @@ local terminal_mode = {
 }
 
 for key, val in pairs(terminal_mode) do
-  keymap('t', key, val, opts)
+  map('t', key, val, opts)
 end
