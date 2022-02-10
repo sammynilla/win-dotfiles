@@ -38,6 +38,8 @@ local n = {
   -- Navigate buffers with Shift + {h,l}
   ['<S-h>'] = ':bprevious<CR>',
   ['<S-l>'] = ':bnext<CR>',
+  -- Save current buffer file with Ctrl + {s}
+  ['<C-s>'] = ':w<CR>'
 }
 
 for key, val in pairs(n) do
@@ -68,22 +70,21 @@ for key, val in pairs(v) do
   map('v', key, val, opts)
 end
 
--- Visual Block --
-local visual_block_mode = {
+local vbl = { -- Visual Block and Line
   -- Move selected text from cursor up and down using Alt + {j,k}
   ['<A-j>'] = [[:move '>+1<CR>gv-gv]],
   ['<A-k>'] = [[:move '<-2<CR>gv-gv]],
 }
 
-for key, val in pairs(visual_block_mode) do
+for key, val in pairs(vbl) do
   map('x', key, val, opts)
 end
 
--- Terminal --
-local terminal_mode = {
+local t = {
+  -- Temporary use of Escape to close the buffer for the terminal.
   ['<ESC>'] = [[<C-\><C-n>:bd!<CR>]],
 }
 
-for key, val in pairs(terminal_mode) do
+for key, val in pairs(t) do
   map('t', key, val, opts)
 end
