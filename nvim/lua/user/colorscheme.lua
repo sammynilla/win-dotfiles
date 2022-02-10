@@ -1,4 +1,9 @@
-vim.cmd [[
+-----------------------------------------------------------
+-- Color schemes configuration file
+-----------------------------------------------------------
+local cmd = vim.cmd
+
+cmd [[
 try
   colorscheme kanagawa
 catch /^Vim\%((\a\+)\)\=:E185/
