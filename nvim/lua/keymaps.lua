@@ -43,6 +43,8 @@ local n = {
   -- Paste from non-volatile yank register
   ['p'] = '"0p',
   ['P'] = '"0p',
+  -- Paste from system clipboard
+  ['<A-p>'] = '"*p',
 }
 
 for key, val in pairs(n) do
