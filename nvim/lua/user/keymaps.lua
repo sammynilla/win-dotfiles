@@ -39,7 +39,10 @@ local n = {
   ['<S-h>'] = ':bprevious<CR>',
   ['<S-l>'] = ':bnext<CR>',
   -- Save current buffer file with Ctrl + {s}
-  ['<C-s>'] = ':w<CR>'
+  ['<C-s>'] = ':w<CR>',
+  -- Paste from non-volatile yank register
+  ['p'] = '"0p',
+  ['P'] = '"0p',
 }
 
 for key, val in pairs(n) do
@@ -56,14 +59,17 @@ for key, val in pairs(i) do
 end
 
 local v = {
-  -- Shift indents in visual mode 
+  -- Shift indents in visual mode
   ['<'] = '<gv',
   ['>'] = '>gv',
   -- Move selected text from cursor up and down using Alt + {j,k}
   ['<A-j>'] = ':m .+1<CR>==',
   ['<A-k>'] = ':m .-2<CR>==',
-  -- Stop paste from yanking old text
-  ['p'] = '_dP',
+  -- Paste from non-volatile yank register
+  ['p'] = '"0p',
+  ['P'] = '"0p',
+  -- Cut entire block and move to non-volatile yank register.
+  ['x'] = '"0x',
 }
 
 for key, val in pairs(v) do
@@ -74,6 +80,8 @@ local vbl = { -- Visual Block and Line
   -- Move selected text from cursor up and down using Alt + {j,k}
   ['<A-j>'] = [[:move '>+1<CR>gv-gv]],
   ['<A-k>'] = [[:move '<-2<CR>gv-gv]],
+  -- Cut entire block and move to non-volatile yank register.
+  ['x'] = '"0x',
 }
 
 for key, val in pairs(vbl) do
