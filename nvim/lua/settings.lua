@@ -22,6 +22,9 @@ opt.timeoutlen = 500
 opt.updatetime = 300
 opt.wrap = false
 
+-- Markdown files can use line break word wrap
+cmd [[ au FileType markdown setlocal wrap linebreak ]]
+
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
@@ -37,7 +40,9 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- Remove extra whitespace on save
-cmd [[au BufWritePre * :%s/\s\+$//e]]
+cmd [[ au BufWritePre * :%s/\s\+$//e ]]
+-- Color column changes per file
+cmd [[ au FileType markdown setlocal cc=0 ]]
 
 -----------------------------------------------------------
 -- Tabs, indents, comments
@@ -48,7 +53,7 @@ opt.tabstop = 2
 opt.smartindent = true
 
 -- Don't auto comment new lines
-cmd [[au BufEnter * set fo-=c fo-=r fo-=o]]
+cmd [[ au BufEnter * set fo-=c fo-=r fo-=o ]]
 
 -----------------------------------------------------------
 -- Search, fuzzy search

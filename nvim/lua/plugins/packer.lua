@@ -34,7 +34,6 @@ if not status_ok then
 end
 
 return packer.startup(function(use)
-  -- My plugins here
   use 'wbthomason/packer.nvim'    -- Package management [lua]
   use 'nvim-lua/plenary.nvim'     -- Common Neovim modules [lua]
   use 'dstein64/vim-startuptime'  -- Vim startup profiling [vim]
@@ -44,13 +43,13 @@ return packer.startup(function(use)
   use 'ctrlpvim/ctrlp.vim'        -- Fuzzy finder [vim]
   use 'tpope/vim-commentary'      -- Comments [vim]
   -- use 'nvim-lualine/lualine.nvim' -- Status Line [lua]
-  -- Treesitter
+  -- Syntax Highlighting
   use {
-    -- On first run, :TSUpdate takes a while to install
-    'nvim-treesitter/nvim-treesitter', -- Syntax Highlighting [lua]
+    'nvim-treesitter/nvim-treesitter', -- [lua]
     run = ':TSUpdate',
   }
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
+  use 'JoosepAlviste/nvim-ts-context-commentstring' -- [lua]
+  use 'preservim/vim-markdown' -- [vim]
   -- Git
   use {
     'lewis6991/gitsigns.nvim', -- [lua]
