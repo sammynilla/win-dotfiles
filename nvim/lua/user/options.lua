@@ -23,16 +23,12 @@ opt.timeoutlen = 500
 opt.updatetime = 300
 opt.wrap = false
 
--- Fix ctrl+c/v copy and paste on windows
-if fn.has('win32') == 1 then
-  cmd [[source $VIMRUNTIME/mswin.vim]]
-end
-
 -----------------------------------------------------------
 -- Neovim UI
 -----------------------------------------------------------
 opt.number = true
 opt.relativenumber = false
+opt.signcolumn = 'yes'
 opt.showmode = false
 opt.cmdheight = 2
 opt.pumheight = 10
@@ -40,6 +36,9 @@ opt.colorcolumn = '80'
 opt.cursorline = false
 opt.splitright = true
 opt.splitbelow = true
+
+-- Remove extra whitespace on save
+cmd [[au BufWritePre * :%s/\s\+$//e]]
 
 -----------------------------------------------------------
 -- Tabs, indents, comments
@@ -61,7 +60,7 @@ opt.smartcase = true    -- ignore lowercase for the whole pattern
 
 -- CTRL+P ignore all files within a project's .gitignore
 g.ctrlp_user_command = {
-  '.git', 
+  '.git',
   'cd %s && git ls-files -co --exclude-standard'
 }
 
