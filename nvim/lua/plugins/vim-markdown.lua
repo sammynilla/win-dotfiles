@@ -1,6 +1,10 @@
 -----------------------------------------------------------
--- Markdown configuration file
+-- Markdown plugin configuration file
 -----------------------------------------------------------
+
+-- Plugin: vim-markdown
+-- https://github.com/preservim/vim-markdown
+
 local g = vim.g
 
 g.vim_markdown_folding_disabled = 1

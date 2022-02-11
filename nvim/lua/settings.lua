@@ -82,5 +82,20 @@ cmd [[
 -----------------------------------------------------------
 -- Startup
 -----------------------------------------------------------
+-- disable builtin plugins
+local disabled_plugins = {
+  'gzip',
+  'zip',
+  'zipPlugin',
+  'tar',
+  'tarPlugin',
+  '2html_plugin',
+  'tutor_mode_plugin',
+  'matchit',
+}
+
+for _, plugin in pairs(disabled_plugins) do
+  g["loaded_" .. plugin] = 1
+end
 -- disable nvim intro
 opt.shortmess:append 'sI'

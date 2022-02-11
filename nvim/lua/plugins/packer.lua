@@ -1,6 +1,10 @@
 -----------------------------------------------------------
--- Plugins configuration file
+-- Plugin manager configuration file
 -----------------------------------------------------------
+
+-- Plugin manager: packer.nvim
+-- https://github.com/wbthomason/packer.nvim
+
 local fn = vim.fn
 local cmd = vim.cmd
 
@@ -33,34 +37,52 @@ if not status_ok then
   return
 end
 
-return packer.startup(function(use)
-  use 'wbthomason/packer.nvim'    -- Package management [lua]
-  use 'nvim-lua/plenary.nvim'     -- Common Neovim modules [lua]
-  use 'dstein64/vim-startuptime'  -- Vim startup profiling [vim]
-  use 'rebelot/kanagawa.nvim'     -- Color theme  [lua]
-  use 'windwp/nvim-autopairs'     -- Autopairs    [lua]
-  use 'lukas-reineke/indent-blankline.nvim' -- Whitespace and indents [lua]
-  use 'ctrlpvim/ctrlp.vim'        -- Fuzzy finder [vim]
-  use 'tpope/vim-commentary'      -- Comments [vim]
-  -- use 'nvim-lualine/lualine.nvim' -- Status Line [lua]
+return packer.startup(function()
+  use 'wbthomason/packer.nvim'
 
-  use { -- Multiple language syntax highlights [lua]
+  -- System profiling
+  use 'dstein64/vim-startuptime'
+
+  -- Color theme
+  use 'rebelot/kanagawa.nvim'
+
+  -- Autopairs
+  use {
+    'windwp/nvim-autopairs',
+    config = function()
+      require('nvim-autopairs').setup()
+    end
+  }
+
+  -- Indentation and whitespace guides
+  use 'lukas-reineke/indent-blankline.nvim'
+
+  -- Fuzzy finder
+  use 'ctrlpvim/ctrlp.vim'
+
+  -- Motion based commenting
+  use 'tpope/vim-commentary'
+
+  -- Treesitter interface
+  use {
     'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
   }
-  use 'JoosepAlviste/nvim-ts-context-commentstring' -- Comments [lua]
-  use 'preservim/vim-markdown' -- Markdown syntax highlighting[vim]
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
+
+  -- Markdown syntax highlighting and web preview
+  use 'preservim/vim-markdown'
   use {
     'iamcco/markdown-preview.nvim', -- [lua]
     run = ':call mkdp#util#install()'
   }
-  -- Git
+
+  -- Git Labels
   use {
     'lewis6991/gitsigns.nvim', -- [lua]
-    requires = {
-      'nvim-lua/plenary.nvim',
-    },
+    requires = { 'nvim-lua/plenary.nvim', },
   }
+
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
   if PACKER_BOOTSTRAP then

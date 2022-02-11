@@ -1,3 +1,10 @@
+-----------------------------------------------------------
+-- Indent line configuration file
+-----------------------------------------------------------
+
+-- Plugin: indent-blankline
+-- https://github.com/lukas-reineke/indent-blankline.nvim
+
 local opt = vim.opt
 
 local status_ok, indent_blankline = pcall(require, 'indent_blankline')
@@ -14,8 +21,17 @@ opt.listchars:append('eol:¬')
 indent_blankline.setup({
   show_trailing_blankline_indent = false,
   show_end_of_line = true,
-  filetype_exclude = { 'checkhealth', 'help', 'packer', },
-  buftype_exclude = { 'terminal', },
+  filetype_exclude = {
+    'checkhealth',
+    'help',
+    'markdown',
+    'text',
+    'packer',
+  },
+  buftype_exclude = {
+    'terminal',
+    'nofile',
+  },
   char_list = { '│', '¦', '¦', },
   indent_level = 3,
   -- use_treesitter = true,
