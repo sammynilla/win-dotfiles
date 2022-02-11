@@ -21,7 +21,7 @@ end
 cmd [[
   augroup packer_user_config
     autocmd!
-    autocmd BufWritePost plugins.lua source <afile> | PackerCompile
+    autocmd BufWritePost packer.lua source <afile> | PackerCompile
   augroup end
 ]]
 
@@ -43,13 +43,17 @@ return packer.startup(function(use)
   use 'ctrlpvim/ctrlp.vim'        -- Fuzzy finder [vim]
   use 'tpope/vim-commentary'      -- Comments [vim]
   -- use 'nvim-lualine/lualine.nvim' -- Status Line [lua]
-  -- Syntax Highlighting
-  use {
-    'nvim-treesitter/nvim-treesitter', -- [lua]
+
+  use { -- Multiple language syntax highlights [lua]
+    'nvim-treesitter/nvim-treesitter',
     run = ':TSUpdate',
   }
-  use 'JoosepAlviste/nvim-ts-context-commentstring' -- [lua]
-  use 'preservim/vim-markdown' -- [vim]
+  use 'JoosepAlviste/nvim-ts-context-commentstring' -- Comments [lua]
+  use 'preservim/vim-markdown' -- Markdown syntax highlighting[vim]
+  use {
+    'iamcco/markdown-preview.nvim', -- [lua]
+    run = ':call mkdp#util#install()'
+  }
   -- Git
   use {
     'lewis6991/gitsigns.nvim', -- [lua]

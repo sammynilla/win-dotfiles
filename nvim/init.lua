@@ -23,6 +23,7 @@ require('keymaps')
 require('colorscheme')
 require('plugins/packer')
 require('plugins/treesitter')
+require('plugins/markdown') -- Keep this here for now, remove eventually.
 require('plugins/autopairs')
 require('plugins/indentline')
 require('plugins/gitsigns')
