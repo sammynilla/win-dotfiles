@@ -23,6 +23,7 @@ map('', '<Up>',     '<nop>',  { noremap = true })
 map('', '<Down>',   '<nop>',  { noremap = true })
 map('', '<Left>',   '<nop>',  { noremap = true })
 map('', '<Right>',  '<nop>',  { noremap = true })
+map('', '<C-Z>',    '<nop>',  { noremap = true })
 
 local n = {
   -- Move around buffer splits with Ctrl + {h,j,k,l}
