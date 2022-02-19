@@ -40,7 +40,7 @@ opt.splitright = true
 opt.splitbelow = true
 
 -- Remove extra whitespace on save
-cmd [[ au BufWritePre * :%s/\s\+$//e ]]
+-- cmd [[ au BufWritePre * :%s/\s\+$//e ]]
 -- Color column changes per file
 cmd [[ au FileType markdown setlocal cc=0 ]]
 
@@ -71,12 +71,19 @@ g.ctrlp_user_command = {
 -----------------------------------------------------------
 -- Terminal
 -----------------------------------------------------------
--- cmd [[command Term :botright vsplit term://cmd.exe]]
+if fn.has('win32') then
+  cmd [[
+    command Term :botright :split term://cmd.exe /k C:\dev-tools\bin\alias.cmd
+  ]]
+end
 -- Terminal visual tweaks
 -- enter insert mode when switching to terminal
 cmd [[
-  autocmd TermOpen * setlocal listchars= nonumber norelativenumber nocursorline
-  autocmd TermOpen * startinsert
+  augroup myterm | au!
+    au TermOpen * if &buftype ==# 'terminal' | resize 12 | endif
+    au TermOpen * setlocal listchars= nonumber norelativenumber nocursorline
+    au TermOpen * startinsert
+  augroup end
 ]]
 
 -----------------------------------------------------------
