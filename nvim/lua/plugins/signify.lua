@@ -4,6 +4,7 @@
 
 -- Plugin: vim-signify 
 -- https://github.com/mhinz/vim-signify
+
 local g = vim.g
 local cmd = vim.cmd
 

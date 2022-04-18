@@ -38,16 +38,23 @@ if not status_ok then
 end
 
 return packer.startup(function()
-  -------------
-  -- General --
-  -------------
-
+  -- [[ General ]] --
   use 'wbthomason/packer.nvim'
   use 'dstein64/vim-startuptime' -- System profiling
   use 'rebelot/kanagawa.nvim' -- Color Theme
   use 'tpope/vim-commentary' -- Motion based commenting
-  use 'mhinz/vim-signify' -- Git signs, line highlight, hunks
+  -- [[ Navigation ]] -- 
   use 'ctrlpvim/ctrlp.vim' -- Fuzzy finder
+  -- [[ Git ]] --
+  use 'mhinz/vim-signify' -- Git diff signs, line highlight, hunks
+  use { 'junegunn/gv.vim', requires = { 'tpope/vim-fugitive', }, }
+  -- [[ Syntax Highlighting ]] --
+  use 'preservim/vim-markdown'
+  -- [[ Writing ]] --
+  use {
+    'iamcco/markdown-preview.nvim',
+    run = ':call mkdp#util#install()'
+  }
 
   -- Autopairs
   use {
@@ -67,22 +74,7 @@ return packer.startup(function()
   }
   use 'JoosepAlviste/nvim-ts-context-commentstring'
 
-  -- Markdown syntax highlighting and web preview
-  use 'preservim/vim-markdown'
-  use {
-    'iamcco/markdown-preview.nvim',
-    run = ':call mkdp#util#install()'
-  }
-
-  
-  -- use {
-  --   'arnamak/stay-centered.nvim',
-  --   config = function()
-  --     require('stay-centered')
-  --   end
-  -- }
-
-  -- use 'caenrique/swap-buffers.nvim'
+  -- Markdown preview via web browser
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
