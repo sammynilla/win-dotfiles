@@ -38,13 +38,16 @@ if not status_ok then
 end
 
 return packer.startup(function()
+  -------------
+  -- General --
+  -------------
+
   use 'wbthomason/packer.nvim'
-
-  -- System profiling
-  use 'dstein64/vim-startuptime'
-
-  -- Color theme
-  use 'rebelot/kanagawa.nvim'
+  use 'dstein64/vim-startuptime' -- System profiling
+  use 'rebelot/kanagawa.nvim' -- Color Theme
+  use 'tpope/vim-commentary' -- Motion based commenting
+  use 'mhinz/vim-signify' -- Git signs, line highlight, hunks
+  use 'ctrlpvim/ctrlp.vim' -- Fuzzy finder
 
   -- Autopairs
   use {
@@ -57,12 +60,6 @@ return packer.startup(function()
   -- Indentation and whitespace guides
   use 'lukas-reineke/indent-blankline.nvim'
 
-  -- Fuzzy finder
-  use 'ctrlpvim/ctrlp.vim'
-
-  -- Motion based commenting
-  use 'tpope/vim-commentary'
-
   -- Treesitter interface
   use {
     'nvim-treesitter/nvim-treesitter',
@@ -73,15 +70,19 @@ return packer.startup(function()
   -- Markdown syntax highlighting and web preview
   use 'preservim/vim-markdown'
   use {
-    'iamcco/markdown-preview.nvim', -- [lua]
+    'iamcco/markdown-preview.nvim',
     run = ':call mkdp#util#install()'
   }
 
-  -- Git Labels
-  use {
-    'lewis6991/gitsigns.nvim', -- [lua]
-    requires = { 'nvim-lua/plenary.nvim', },
-  }
+  
+  -- use {
+  --   'arnamak/stay-centered.nvim',
+  --   config = function()
+  --     require('stay-centered')
+  --   end
+  -- }
+
+  -- use 'caenrique/swap-buffers.nvim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins

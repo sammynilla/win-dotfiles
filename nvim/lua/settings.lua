@@ -69,24 +69,6 @@ g.ctrlp_user_command = {
 }
 
 -----------------------------------------------------------
--- Terminal
------------------------------------------------------------
-if fn.has('win32') then
-  cmd [[
-    command Term :botright :split term://cmd.exe /k C:\dev-tools\bin\alias.cmd
-  ]]
-end
--- Terminal visual tweaks
--- enter insert mode when switching to terminal
-cmd [[
-  augroup myterm | au!
-    au TermOpen * if &buftype ==# 'terminal' | resize 12 | endif
-    au TermOpen * setlocal listchars= nonumber norelativenumber nocursorline
-    au TermOpen * startinsert
-  augroup end
-]]
-
------------------------------------------------------------
 -- Startup
 -----------------------------------------------------------
 -- disable builtin plugins
