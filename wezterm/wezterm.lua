@@ -32,6 +32,9 @@ function recompute_padding(window)
 end
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+  -- local branch, stdout, stderr = wezterm.run_child_process({
+  --   "git", "rev-parse", "--abbrev-ref", "HEAD"
+  -- })
   set_environment_variables["prompt"] = "$E[35m$P $E[36m=>$E[0m "
   default_prog = {
     "cmd.exe", "/s", "/k",
@@ -60,7 +63,8 @@ wezterm.on(
 return {
   default_prog = default_prog,
   set_environment_variables = set_environment_variables,
-  enable_tab_bar = false,
+  use_fancy_tab_bar = false,
+  hide_tab_bar_if_only_one_tab = true,
   window_padding = {
     left = 5,
     right = 5,
