@@ -62,12 +62,6 @@ opt.hlsearch = false
 opt.ignorecase = true   -- ignore case letters when search
 opt.smartcase = true    -- ignore lowercase for the whole pattern
 
--- CTRL+P ignore all files within a project's .gitignore
-g.ctrlp_user_command = {
-  '.git',
-  'cd %s && git ls-files -co --exclude-standard'
-}
-
 -----------------------------------------------------------
 -- Startup
 -----------------------------------------------------------

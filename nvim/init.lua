@@ -9,7 +9,7 @@
 
 
 Neovim init file
-Latest Update: 2022/04/16
+Latest Update: 2022/04/18
 Maintainer: sammynilla
 Website: https://github.com/sammynilla/win-dotfiles/tree/main/nvim
 
@@ -18,13 +18,18 @@ Website: https://github.com/sammynilla/win-dotfiles/tree/main/nvim
 -----------------------------------------------------------
 -- Import Lua modules
 -----------------------------------------------------------
+-- [[ Required ]] --
+require('plugins/packer')
+-- [[ General ]] --
 require('settings')
 require('keymaps')
 require('colorscheme')
-require('plugins/packer')
-require('plugins/nvim-treesitter')
-require('plugins/vim-markdown') -- Keep this here for now. Might remove.
-require('plugins/indent-blankline')
+-- [[ Plugins ]] --
 require('plugins/signify')
+require('plugins/ctrlp')
+-- require('plugins/jabs')
+require('plugins/nvim-treesitter')
+require('plugins/indent-blankline')
 -- require('plugins/lualine')
+require('plugins/vim-markdown') -- Keep this here for now. Might remove.
 require('extras/yankhl')
