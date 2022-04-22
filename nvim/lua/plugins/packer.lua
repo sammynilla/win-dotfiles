@@ -42,6 +42,7 @@ return packer.startup(function()
   use 'wbthomason/packer.nvim'
   use 'dstein64/vim-startuptime' -- System profiling
   use 'tpope/vim-commentary' -- Motion based commenting
+  use 'andweeb/presence.nvim' -- Discord rich presence
   -- [[ Theming ]] --
   use 'rebelot/kanagawa.nvim' -- Color Theme
   use 'ryanoasis/vim-devicons'
