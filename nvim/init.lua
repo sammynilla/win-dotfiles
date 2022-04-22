@@ -30,6 +30,5 @@ require('plugins/signify')
 require('plugins/ctrlp')
 require('plugins/nvim-treesitter')
 -- require('plugins/indent-blankline')
--- require('plugins/lualine')
 require('plugins/vim-markdown') -- Keep this here for now. Might remove.
 require('extras/yankhl')

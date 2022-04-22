@@ -18,27 +18,22 @@ local opts = { noremap = true, silent = true }
 -- Neovim shortcuts:
 -----------------------------------------------------------
 
--- Prevent myself from using arrow keys.
-map('', '<Up>',     '<nop>',  { noremap = true })
-map('', '<Down>',   '<nop>',  { noremap = true })
-map('', '<Left>',   '<nop>',  { noremap = true })
-map('', '<Right>',  '<nop>',  { noremap = true })
-map('', '<C-Z>',    '<nop>',  { noremap = true })
-
 local n = {
+  -- Disable arrow keys in normal mode. Use {h,j,k,l}
+  ['<Left>'] = '<nop>',
+  ['<Down>'] = '<nop>',
+  ['<Up>'] = '<nop>',
+  ['<Right>'] = '<nop>',
   -- Move around buffer splits with Ctrl + {h,j,k,l}
   ['<C-h>'] = '<C-w>h',
   ['<C-j>'] = '<C-w>j',
   ['<C-k>'] = '<C-w>k',
   ['<C-l>'] = '<C-w>l',
   -- Resize buffer splits with Ctrl + arrow
-  ['<C-Up>'] = ':resize -2<CR>',
-  ['<C-Down>'] = ':resize +2<CR>',
   ['<C-Left>'] = ':vertical resize -2<CR>',
+  ['<C-Down>'] = ':resize +2<CR>',
+  ['<C-Up>'] = ':resize -2<CR>',
   ['<C-Right>'] = ':vertical resize +2<CR>',
-  -- Navigate buffers with Shift + {h,l}
-  ['<S-h>'] = ':bprevious<CR>',
-  ['<S-l>'] = ':bnext<CR>',
   -- Save current buffer file with Ctrl + {s}
   ['<C-s>'] = ':w<CR>',
   -- Paste from non-volatile yank register
@@ -46,6 +41,13 @@ local n = {
   ['P'] = '"0p',
   -- Paste from system clipboard
   ['<A-p>'] = '"*p',
+  -- Bug fix? On windows Ctrl + {z} causes terminal to freeze
+  ['<C-z>'] = '<nop>',
+  -- Disable annoying 'ex' mode
+  ['<S-Q>'] = '<nop>',
+  -- [[ PLUGINS ]] --
+  ['<C-o>'] = ':CtrlPMRUFiles<CR>',
+  ['<C-b>'] = ':CtrlPBuffer<CR>'
 }
 
 for key, val in pairs(n) do
@@ -53,7 +55,13 @@ for key, val in pairs(n) do
 end
 
 local i = {
+  -- STOP using arrow keys!
+  ['<Left>'] = '<nop>',
+  ['<Down>'] = '<nop>',
+  ['<Up>'] = '<nop>',
+  ['<Right>'] = '<nop>',
   -- Prevent myself from using Escape.
+  ['<ESC>'] = '<nop>',
   ['kj'] = '<ESC>',
 }
 
@@ -62,6 +70,11 @@ for key, val in pairs(i) do
 end
 
 local v = {
+  -- STOP using arrow keys!
+  ['<Left>'] = '<nop>',
+  ['<Down>'] = '<nop>',
+  ['<Up>'] = '<nop>',
+  ['<Right>'] = '<nop>',
   -- Shift indents in visual mode
   ['<'] = '<gv',
   ['>'] = '>gv',
@@ -80,6 +93,11 @@ for key, val in pairs(v) do
 end
 
 local vbl = { -- Visual Block and Line
+  -- STOP using arrow keys!
+  ['<Left>'] = '<nop>',
+  ['<Down>'] = '<nop>',
+  ['<Up>'] = '<nop>',
+  ['<Right>'] = '<nop>',
   -- Move selected text from cursor up and down using Alt + {j,k}
   ['<A-j>'] = [[:move '>+1<CR>gv-gv]],
   ['<A-k>'] = [[:move '<-2<CR>gv-gv]],
