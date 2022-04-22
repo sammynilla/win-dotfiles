@@ -41,40 +41,31 @@ return packer.startup(function()
   -- [[ General ]] --
   use 'wbthomason/packer.nvim'
   use 'dstein64/vim-startuptime' -- System profiling
-  use 'rebelot/kanagawa.nvim' -- Color Theme
   use 'tpope/vim-commentary' -- Motion based commenting
+  -- [[ Theming ]] --
+  use 'rebelot/kanagawa.nvim' -- Color Theme
+  use 'ryanoasis/vim-devicons'
   -- [[ Navigation ]] -- 
   use 'ctrlpvim/ctrlp.vim' -- Fuzzy finder
   -- [[ Git ]] --
   use 'mhinz/vim-signify' -- Git diff signs, line highlight, hunks
   use { 'junegunn/gv.vim', requires = { 'tpope/vim-fugitive', }, }
   -- [[ Syntax Highlighting ]] --
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', }
+  use 'JoosepAlviste/nvim-ts-context-commentstring'
   use 'preservim/vim-markdown'
   -- [[ Writing ]] --
-  use {
-    'iamcco/markdown-preview.nvim',
-    run = ':call mkdp#util#install()'
-  }
+  use { 'iamcco/markdown-preview.nvim', run = ':call mkdp#util#install()', }
 
+  -- NOTE: STILL ANALYZING THE BELOW PACKAGES
   -- Autopairs
   use {
     'windwp/nvim-autopairs',
-    config = function()
-      require('nvim-autopairs').setup()
-    end
+    config = function() require('nvim-autopairs').setup() end
   }
 
   -- Indentation and whitespace guides
-  use 'lukas-reineke/indent-blankline.nvim'
-
-  -- Treesitter interface
-  use {
-    'nvim-treesitter/nvim-treesitter',
-    run = ':TSUpdate',
-  }
-  use 'JoosepAlviste/nvim-ts-context-commentstring'
-
-  -- Markdown preview via web browser
+  -- use 'lukas-reineke/indent-blankline.nvim'
 
   -- Automatically set up your configuration after cloning packer.nvim
   -- Put this at the end after all plugins
