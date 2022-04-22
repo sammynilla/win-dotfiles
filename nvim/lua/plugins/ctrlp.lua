@@ -9,8 +9,7 @@ local g = vim.g
 local fn = vim.fn
 
 g.ctrlp_line_prefix = ''
--- No interest in mru or buf. I use JABS for buffers.
-g.ctrlp_types = {'fil'}
+g.ctrlp_types = {'fil', 'buf'}
 -- Set up this command by default
 g.ctrlp_user_command = {
   '.git', 'cd %s && git ls-files -co --exclude-standard'

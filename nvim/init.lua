@@ -9,7 +9,7 @@
 
 
 Neovim init file
-Latest Update: 2022/04/18
+Latest Update: 2022/04/21
 Maintainer: sammynilla
 Website: https://github.com/sammynilla/win-dotfiles/tree/main/nvim
 
@@ -27,7 +27,6 @@ require('colorscheme')
 -- [[ Plugins ]] --
 require('plugins/signify')
 require('plugins/ctrlp')
--- require('plugins/jabs')
 require('plugins/nvim-treesitter')
 require('plugins/indent-blankline')
 -- require('plugins/lualine')
