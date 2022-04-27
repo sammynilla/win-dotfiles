@@ -39,8 +39,6 @@ opt.cursorline = false
 opt.splitright = true
 opt.splitbelow = true
 
--- Remove extra whitespace on save
--- cmd [[ au BufWritePre * :%s/\s\+$//e ]]
 -- Color column changes per file
 cmd [[ au FileType markdown setlocal cc=0 ]]
 

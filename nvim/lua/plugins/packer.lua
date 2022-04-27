@@ -43,27 +43,27 @@ return packer.startup(function()
   use 'dstein64/vim-startuptime' -- System profiling
   use 'tpope/vim-commentary' -- Motion based commenting
   use 'andweeb/presence.nvim' -- Discord rich presence
+  use 'ntpeters/vim-better-whitespace' -- Whitespace highlighting
   -- [[ Theming ]] --
   use 'rebelot/kanagawa.nvim' -- Color Theme
   use 'ryanoasis/vim-devicons'
-  -- [[ Navigation ]] -- 
+  -- [[ Navigation ]] --
   use 'ctrlpvim/ctrlp.vim' -- Fuzzy finder
+  use { -- Jump to line numbers
+    'nacro90/numb.nvim', config = require('numb').setup({ number_only = true })
+  }
   -- [[ Git ]] --
   use 'mhinz/vim-signify' -- Git diff signs, line highlight, hunks
-  use { 'junegunn/gv.vim', requires = { 'tpope/vim-fugitive', }, }
+  use { 'junegunn/gv.vim', requires = { 'tpope/vim-fugitive' } }
   -- [[ Syntax Highlighting ]] --
-  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate', }
+  use { 'nvim-treesitter/nvim-treesitter', run = ':TSUpdate' }
   use 'JoosepAlviste/nvim-ts-context-commentstring'
   use 'preservim/vim-markdown'
+  -- [[ Text Editing ]] --
+  use 'windwp/nvim-ts-autotag'
+  use { 'windwp/nvim-autopairs', config = require('nvim-autopairs').setup() }
   -- [[ Writing ]] --
-  use { 'iamcco/markdown-preview.nvim', run = ':call mkdp#util#install()', }
-
-  -- NOTE: STILL ANALYZING THE BELOW PACKAGES
-  -- Autopairs
-  use {
-    'windwp/nvim-autopairs',
-    config = function() require('nvim-autopairs').setup() end
-  }
+  use { 'iamcco/markdown-preview.nvim', run = ':call mkdp#util#install()' }
 
   -- Indentation and whitespace guides
   -- use 'lukas-reineke/indent-blankline.nvim'

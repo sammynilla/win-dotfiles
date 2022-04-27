@@ -9,7 +9,7 @@
 
 
 Neovim init file
-Latest Update: 2022/04/21
+Latest Update: 2022/04/27
 Maintainer: sammynilla
 Website: https://github.com/sammynilla/win-dotfiles/tree/main/nvim
 

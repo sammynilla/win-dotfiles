@@ -29,14 +29,9 @@ local installed_languages = {
 }
 
 configs.setup({
-  ensure_installed = installed_languages, 
+  ensure_installed = installed_languages,
   sync_install = false,
-  highlight = {
-    enable = true,
-    -- disable = {''},
-    -- additional_vim_regex_highlighting = false,
-  },
-  context_commentstring = {
-    enable = true,
-  },
+  highlight = { enable = true, },
+  context_commentstring = { enable = true, },
+  autotag = { enable = true, },
 })
