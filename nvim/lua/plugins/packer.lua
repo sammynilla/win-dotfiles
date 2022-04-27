@@ -50,7 +50,8 @@ return packer.startup(function()
   -- [[ Navigation ]] --
   use 'ctrlpvim/ctrlp.vim' -- Fuzzy finder
   use { -- Jump to line numbers
-    'nacro90/numb.nvim', config = require('numb').setup({ number_only = true })
+    'nacro90/numb.nvim',
+    config = function() require('numb').setup({ number_only = true }) end
   }
   -- [[ Git ]] --
   use 'mhinz/vim-signify' -- Git diff signs, line highlight, hunks
@@ -61,7 +62,10 @@ return packer.startup(function()
   use 'preservim/vim-markdown'
   -- [[ Text Editing ]] --
   use 'windwp/nvim-ts-autotag'
-  use { 'windwp/nvim-autopairs', config = require('nvim-autopairs').setup() }
+  use {
+    'windwp/nvim-autopairs',
+    config = function() require('nvim-autopairs').setup() end
+  }
   -- [[ Writing ]] --
   use { 'iamcco/markdown-preview.nvim', run = ':call mkdp#util#install()' }
 
