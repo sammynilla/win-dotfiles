@@ -1,7 +1,4 @@
-local status_ok, wezterm = pcall(require, 'wezterm')
-if not status_ok then
-  return
-end
+local wezterm = require('wezterm')
 
 local default_prog;
 local set_environment_variables = {};
