@@ -1,6 +1,3 @@
------------------------------------------------------------
--- Fuzzy file finder configuration file
------------------------------------------------------------
 
 -- Plugin: ctrlp.vim
 -- https://github.com/ctrlpvim/ctrlp.vim

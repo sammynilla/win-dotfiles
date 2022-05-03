@@ -72,8 +72,27 @@ vim.o.ignorecase = true -- ignore case when searching with / or ?
 vim.o.smartcase = true  -- ignore case if search pattern is all lowercase, case-sensitive otherwise
 vim.opt.shortmess:append("s") -- dont give search hit bottom messages
 
--- [[ auto-commands ]] --
-vim.cmd([[ au BufEnter * set fo-=c fo-=r fo-=o ]]) -- don"t auto comment new lines
-vim.cmd([[ au FileType markdown setlocal cc=0 ]]) -- no color column on expressed filetypes
-vim.cmd([[ au FileType markdown setlocal wrap linebreak ]]) -- markdown files can use line break word wrap
+local au = require("au")
+
+au.TextYankPost = function()
+  vim.highlight.on_yank({ higroup = "IncSearch", timeout = 300 })
+end
+
+au.BufEnter = {
+  "*",
+  function()
+    vim.cmd([[set fo-=c fo-=r fo-=o]])
+  end,
+}
+
+au.FileType = {
+  "markdown",
+  function()
+    vim.cmd([[setlocal cc=0 wrap linebreak]])
+  end,
+}
+
+au.group("PackerGroup", {
+  { "BufWritePost", "packer.lua", "source <afile> | PackerCompile" },
+})
 
