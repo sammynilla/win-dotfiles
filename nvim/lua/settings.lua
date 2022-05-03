@@ -1,82 +1,79 @@
------------------------------------------------------------
--- Neovim API aliases
------------------------------------------------------------
-local cmd = vim.cmd
-local fn = vim.fn
-local opt = vim.opt
-local g = vim.g
+-- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
+vim.g.do_filetype_lua = 1
+vim.g.did_load_filetypes = 0
+local _, impatient = pcall(require, "impatient")
 
------------------------------------------------------------
--- General
------------------------------------------------------------
-opt.mouse = 'a'
-opt.clipboard = 'unnamedplus'
--- https://medium.com/@Aenon/vim-swap-backup-undo-git-2bf353caa02f
-opt.swapfile = false
-opt.backup = false
-opt.writebackup = false
-opt.undofile = true
-
-opt.fileencoding = 'utf-8'
-opt.timeoutlen = 500
-opt.updatetime = 300
-opt.wrap = false
-
--- Markdown files can use line break word wrap
-cmd [[ au FileType markdown setlocal wrap linebreak ]]
-
------------------------------------------------------------
--- Neovim UI
------------------------------------------------------------
-opt.number = true
-opt.relativenumber = false
-opt.signcolumn = 'yes'
-opt.showmode = false
-opt.cmdheight = 2
-opt.pumheight = 10
-opt.colorcolumn = '80'
-opt.cursorline = false
-opt.splitright = true
-opt.splitbelow = true
-
--- Color column changes per file
-cmd [[ au FileType markdown setlocal cc=0 ]]
-
------------------------------------------------------------
--- Tabs, indents, comments
------------------------------------------------------------
-opt.expandtab = true
-opt.shiftwidth = 2
-opt.tabstop = 2
-opt.smartindent = true
-
--- Don't auto comment new lines
-cmd [[ au BufEnter * set fo-=c fo-=r fo-=o ]]
-
------------------------------------------------------------
--- Search, fuzzy search
------------------------------------------------------------
-opt.hlsearch = false
-opt.ignorecase = true   -- ignore case letters when search
-opt.smartcase = true    -- ignore lowercase for the whole pattern
-
------------------------------------------------------------
--- Startup
------------------------------------------------------------
--- disable builtin plugins
+-- disable some built-in plugins that we don't need. increase load times.
 local disabled_plugins = {
-  'gzip',
-  'zip',
-  'zipPlugin',
-  'tar',
-  'tarPlugin',
-  '2html_plugin',
-  'tutor_mode_plugin',
-  'matchit',
+  "gzip",
+  "man",
+  "zip",
+  "zipPlugin",
+  "shada_plugin",
+  "tar",
+  "tarPlugin",
+  "2html_plugin",
+  "tutor_mode_plugin",
+  "matchit",
+  "netrwPlugin",
 }
 
 for _, plugin in pairs(disabled_plugins) do
-  g["loaded_" .. plugin] = 1
+  vim.g["loaded_" .. plugin] = 1
 end
--- disable nvim intro
-opt.shortmess:append 'sI'
+
+-- [[ general ]] --
+-- vim.o.mouse = "a" -- enable mouse for all modes
+vim.o.clipboard = "unnamedplus"
+vim.o.timeoutlen = 500
+vim.o.title = true -- change the terminal's title
+vim.opt.shortmess:append("I") -- disable nvim intro
+
+-- [[ files ]] --
+vim.o.wrap = false -- don't wrap lines
+vim.o.showbreak = "↪ "
+vim.o.encoding = "utf-8"
+vim.opt.listchars:append("eol:¬")
+
+-- [[ recovery files ]] --
+-- https://medium.com/@Aenon/vim-swap-backup-undo-git-2bf353caa02f
+-- vim.o.updatetime = 300 -- time before writing to swapfile
+vim.o.swapfile = false
+vim.o.backup = false
+vim.o.writebackup = false
+vim.o.undofile = true
+
+-- [[ user interface ]] --
+vim.o.number = true -- always show line numbers
+vim.o.signcolumn = "yes"
+vim.o.showmode = false -- do not show -- MODE -- in cmdline
+-- vim.o.cmdheight = 2 -- height of the command line
+vim.o.colorcolumn = "80"
+vim.o.cursorline = true
+vim.o.splitright = true
+vim.o.splitbelow = true
+
+-- [[ pop-up menu ]] --
+vim.o.pumheight = 15
+vim.o.wildignore = "*.lnk"
+vim.o.wildmode = "longest,full"
+vim.o.wildignorecase = true -- ignore case in command completion menu
+vim.opt.shortmess:append("c") -- dont give ins-completion-menu messages
+
+-- [[ tabs ]] --
+vim.o.tabstop = 2 -- a tab is two spaces
+vim.o.shiftwidth = vim.o.tabstop -- number of spaces to use for auto-indenting
+vim.o.expandtab = true -- expand tabs to count tabstop n° of spaces
+vim.o.smartindent = true -- insert tabs on the start of a line according to shiftwidth
+
+-- [[ search ]] --
+vim.o.hlsearch = false -- highlight search terms
+vim.o.ignorecase = true -- ignore case when searching with / or ?
+vim.o.smartcase = true  -- ignore case if search pattern is all lowercase, case-sensitive otherwise
+vim.opt.shortmess:append("s") -- dont give search hit bottom messages
+
+-- [[ auto-commands ]] --
+vim.cmd([[ au BufEnter * set fo-=c fo-=r fo-=o ]]) -- don"t auto comment new lines
+vim.cmd([[ au FileType markdown setlocal cc=0 ]]) -- no color column on expressed filetypes
+vim.cmd([[ au FileType markdown setlocal wrap linebreak ]]) -- markdown files can use line break word wrap
+
