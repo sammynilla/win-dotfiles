@@ -23,6 +23,15 @@ for _, plugin in pairs(disabled_plugins) do
   vim.g["loaded_" .. plugin] = 1
 end
 
+-- disable providers until we need them. increases checkhealth runtime.
+local disabled_providers = {
+  "python3", "node", "perl", "ruby",
+}
+
+for _, provider in pairs(disabled_providers) do
+  vim.g["loaded_" .. provider .. "_provider"] = 0
+end
+
 -- [[ general ]] --
 -- vim.o.mouse = "a" -- enable mouse for all modes
 vim.o.clipboard = "unnamedplus"
