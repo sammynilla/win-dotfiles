@@ -8,8 +8,6 @@ vim.g.signify_sign_delete_first_line = "┃"
 vim.g.signify_sign_change = "┃"
 vim.g.signify_sign_change_delete = "┃"
 
--- vim.g.signify_sign_show_count = 1
-
 vim.cmd([[
   highlight SignifySignAdd ctermfg=green guifg=#76946A
   highlight SignifySignChange ctermfg=yellow guifg=#DCA561
@@ -17,3 +15,4 @@ vim.cmd([[
   highlight link SignifySignChangeDelete SignifySignChange
   highlight link SignifySignDeleteFirstLine SignifySignDelete
 ]])
+

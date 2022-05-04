@@ -12,3 +12,4 @@ else
     ".git", "cd %s && git ls-files -co --exclude-standard"
   }
 end
+

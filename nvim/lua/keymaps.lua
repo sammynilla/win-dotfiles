@@ -1,22 +1,6 @@
------------------------------------------------------------
--- Keymaps configuration file
--- Keymaps of neovim and plugins.
------------------------------------------------------------
-
------------------------------------------------------------
---                    - Input Modes -
--- ────────┬────────┬────────┬────────┬──────────┬─────────
---  Normal │ Insert │ Visual │ VBlock │ Terminal │ Command
--- ────────┼────────┼────────┼────────┼──────────┼─────────
---   'n'   │  'i'   │  'v'   │  'x'   │   't'    │   'c'
------------------------------------------------------------
 
 local map = vim.api.nvim_set_keymap
 local opts = { noremap = true, silent = true }
-
------------------------------------------------------------
--- Neovim shortcuts:
------------------------------------------------------------
 
 local n = {
   -- Disable arrow keys in normal mode. Use {h,j,k,l}
@@ -47,7 +31,9 @@ local n = {
   ['<S-Q>'] = '<nop>',
   -- [[ PLUGINS ]] --
   ['<C-o>'] = ':CtrlPMRUFiles<CR>',
-  ['<C-b>'] = ':CtrlPBuffer<CR>'
+  ['<C-b>'] = ':CtrlPBuffer<CR>',
+  -- ['n'] = [[:lua require('highlight_current_n').n()<CR>]],
+  -- ['N'] = [[:lua require('highlight_current_n').N()<CR>]]
 }
 
 for key, val in pairs(n) do
