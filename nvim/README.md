@@ -7,10 +7,11 @@ Let's start by installing `scoop`; one of the multiple package managers for Wind
 
 Once it's fully installed, you can follow it up in the same command prompt with the following commands:
 ```batch
-setx /M XDG_CONFIG_HOME "%USERPROFILE%\.config
+setx /M XDG_CONFIG_HOME "%USERPROFILE%\.config"
 cd %USERPROFILE%
 git clone git@github.com:sammynilla/win-dotfiles.git
 move win-dotfiles .config
 ```
 
 Our editor should be all setup now utilizing our Windows configuration files. Enjoy!
+
