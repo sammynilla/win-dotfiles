@@ -35,14 +35,22 @@ return require("packer").startup({ function(use)
   use ({ "dstein64/vim-startuptime" }) -- system profiling
   use ({ "tpope/vim-commentary" }) -- motion based commenting
   use ({ "ntpeters/vim-better-whitespace" }) -- whitespace highlighting
-  -- use ({ "rktjmp/highlight-current-n.nvim" })
+  use ({ "rktjmp/highlight-current-n.nvim" })
 
   -- [[ theming ]] --
   use ({
     "rebelot/kanagawa.nvim", -- color theme
-    run = ":colorscheme kanagawa",
+    run = ":luafile lua/colorscheme.lua",
   })
   use ({ "ryanoasis/vim-devicons" })
+  use ({
+    "crispgm/nvim-tabline",
+    config = function()
+      local ok, tabline = pcall(require, "tabline")
+      if ok then tabline.setup({}) end
+    end,
+    run = function() require("tabline").setup({}) end,
+  })
 
   -- [[ navigation ]] --
   use ({ "ctrlpvim/ctrlp.vim" }) -- fuzzy finder
@@ -58,16 +66,16 @@ return require("packer").startup({ function(use)
   -- [[ git ]] --
   use ({
     "lewis6991/gitsigns.nvim", -- git diff signs
+    event = "BufEnter",
     config = function()
       require("plugins.gitsigns")
     end,
-    event = "BufEnter",
     run = ":luafile lua/plugins/gitsigns.lua",
   })
   use ({ "junegunn/gv.vim", requires = { "tpope/vim-fugitive" }, })
 
   -- [[ syntax highlighting ]] --
-  use ({ "nvim-treesitter/nvim-treesitter" })
+  -- use ({ "nvim-treesitter/nvim-treesitter" })
   -- use ({
   --   "JoosepAlviste/nvim-ts-context-commentstring",
   --   requires = { "nvim-treesitter/nvim-treesitter" },
@@ -82,6 +90,7 @@ return require("packer").startup({ function(use)
   -- })
   use ({
     "windwp/nvim-autopairs",
+    event = "InsertEnter",
     config = function()
       local ok, autopairs = pcall(require, "nvim-autopairs")
       if ok then autopairs.setup() end
@@ -89,10 +98,8 @@ return require("packer").startup({ function(use)
   })
 
   -- [[ writing ]] --
+  use ({ "ellisonleao/glow.nvim" })
   use ({ "junegunn/limelight.vim" })
-  -- TODO: markdown-preview installation is fairly slow and heavy, afterwards it's not a big deal.
-  --       maybe it's better to try out Glow or install this as an optional plugin.
-  -- use ({ "iamcco/markdown-preview.nvim", run = ":call mkdp#util#install()" })
 
   -- indentation and whitespace guides
   -- use ({ "lukas-reineke/indent-blankline.nvim" })
