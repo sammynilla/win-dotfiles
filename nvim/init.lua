@@ -11,8 +11,6 @@
 -- Maintainer: sammynilla
 -- Website: https://github.com/sammynilla/win-dotfiles/tree/main/nvim
 
-require("plugins.packer")
-
 -- [[ general ]] --
 require("settings")
 require("autocommands")
@@ -20,6 +18,7 @@ require("keymaps")
 -- [[ theming ]] --
 require("colorscheme")
 -- [[ plugins ]] --
+require("plugins")
 require("plugins.gitsigns")
 require("plugins.ctrlp")
 require("plugins.markdown")

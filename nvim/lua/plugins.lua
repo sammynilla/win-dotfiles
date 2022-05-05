@@ -20,7 +20,7 @@ end
 -- auto-compile
 local au = require("au")
 au.group("PackerGroup", {
-  { "BufWritePost", "packer.lua", "source <afile> | PackerCompile" },
+  { "BufWritePost", "plugins.lua", "source <afile> | PackerCompile" },
 })
 
 require("packer").init({
@@ -31,7 +31,7 @@ return require("packer").startup({ function(use)
   -- [[ general ]] --
   use ({ "wbthomason/packer.nvim" })
   use ({ "lewis6991/impatient.nvim" })
-  -- use ({ "andweeb/presence.nvim" }) -- discord rich presence
+  -- use ({ "andweeb/presence.nvim" }) -- discord rich presence (VERY SLOW)
   use ({ "dstein64/vim-startuptime" }) -- system profiling
   use ({ "tpope/vim-commentary" }) -- motion based commenting
   use ({ "ntpeters/vim-better-whitespace" }) -- whitespace highlighting
@@ -58,7 +58,11 @@ return require("packer").startup({ function(use)
   -- [[ git ]] --
   use ({
     "lewis6991/gitsigns.nvim", -- git diff signs
-    run = ":luafile lua/plugins/gitsigns.lua"
+    config = function()
+      require("plugins.gitsigns")
+    end,
+    event = "BufEnter",
+    run = ":luafile lua/plugins/gitsigns.lua",
   })
   use ({ "junegunn/gv.vim", requires = { "tpope/vim-fugitive" }, })
 
