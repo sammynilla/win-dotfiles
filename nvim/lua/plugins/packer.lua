@@ -3,7 +3,6 @@
 -- https://github.com/wbthomason/packer.nvim
 
 local fn = vim.fn
-local execute = vim.api.nvim_command
 
 -- bootstrap
 local PACKER_BOOTSTRAP = nil
@@ -15,7 +14,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
     "https://github.com/wbthomason/packer.nvim",
     install_path,
   })
-  execute("packadd packer.nvim")
+  vim.api.nvim_command("packadd packer.nvim")
 end
 
 -- auto-compile
@@ -32,7 +31,7 @@ return require("packer").startup({ function(use)
   -- [[ general ]] --
   use ({ "wbthomason/packer.nvim" })
   use ({ "lewis6991/impatient.nvim" })
-  use ({ "andweeb/presence.nvim" }) -- discord rich presence
+  -- use ({ "andweeb/presence.nvim" }) -- discord rich presence
   use ({ "dstein64/vim-startuptime" }) -- system profiling
   use ({ "tpope/vim-commentary" }) -- motion based commenting
   use ({ "ntpeters/vim-better-whitespace" }) -- whitespace highlighting
@@ -41,45 +40,52 @@ return require("packer").startup({ function(use)
   -- [[ theming ]] --
   use ({
     "rebelot/kanagawa.nvim", -- color theme
-    run = function() execute("colorscheme kanagawa") end,
+    run = ":colorscheme kanagawa",
   })
   use ({ "ryanoasis/vim-devicons" })
+
   -- [[ navigation ]] --
   use ({ "ctrlpvim/ctrlp.vim" }) -- fuzzy finder
   use ({
     "nacro90/numb.nvim", -- jump to line numbers
-    -- config = function() require("numb").setup() end,
-    -- run = function() require("numb").setup() end,
+    config = function()
+      local ok, numb = pcall(require, "numb")
+      if ok then numb.setup() end
+    end,
+    run = function() require("numb").setup() end,
   })
 
   -- [[ git ]] --
   use ({
-    "mhinz/vim-signify", -- git diff signs, line highlight, hunks
-    config = function()
-      -- TODO: re-evaluate how we're accomplishing this
-      vim.cmd([[source ~/.config/nvim/lua/plugins/signify.lua]])
-    end,
+    "lewis6991/gitsigns.nvim", -- git diff signs
+    run = ":luafile lua/plugins/gitsigns.lua"
   })
-  use ({ "junegunn/gv.vim", requires = { "tpope/vim-fugitive" } })
+  use ({ "junegunn/gv.vim", requires = { "tpope/vim-fugitive" }, })
 
   -- [[ syntax highlighting ]] --
+  use ({ "nvim-treesitter/nvim-treesitter" })
   -- use ({
-  --   "nvim-treesitter/nvim-treesitter",
-  --   run = ":TSUpdate",
-  --   config = function() require("plugins.nvim-treesitter") end,
+  --   "JoosepAlviste/nvim-ts-context-commentstring",
+  --   requires = { "nvim-treesitter/nvim-treesitter" },
   -- })
-  -- use ({ "JoosepAlviste/nvim-ts-context-commentstring" })
-  use ({ "preservim/vim-markdown", })
-  use ({ "vim-pandoc/vim-pandoc-syntax", })
+  use ({ "preservim/vim-markdown" })
+  use ({ "vim-pandoc/vim-pandoc-syntax" })
 
   -- [[ text editing ]] --
-  -- use ({ "windwp/nvim-ts-autotag" })
   -- use ({
-  --   "windwp/nvim-autopairs",
-  --   -- run = function() require("nvim-autopairs").setup() end,
+  --   "windwp/nvim-ts-autotag",
+  --   after = "nvim-treesitter",
   -- })
+  use ({
+    "windwp/nvim-autopairs",
+    config = function()
+      local ok, autopairs = pcall(require, "nvim-autopairs")
+      if ok then autopairs.setup() end
+    end,
+  })
 
   -- [[ writing ]] --
+  use ({ "junegunn/limelight.vim" })
   -- TODO: markdown-preview installation is fairly slow and heavy, afterwards it's not a big deal.
   --       maybe it's better to try out Glow or install this as an optional plugin.
   -- use ({ "iamcco/markdown-preview.nvim", run = ":call mkdp#util#install()" })

@@ -33,11 +33,11 @@ for _, provider in pairs(disabled_providers) do
 end
 
 -- [[ general ]] --
+vim.o.title = true -- change the terminal's title
 -- vim.o.mouse = "a" -- enable mouse for all modes
 vim.o.clipboard = "unnamedplus"
-vim.o.timeoutlen = 500
-vim.o.title = true -- change the terminal's title
 vim.opt.shortmess:append("I") -- disable nvim intro
+vim.o.timeoutlen = 500
 
 -- [[ files ]] --
 vim.o.wrap = false -- don't wrap lines
@@ -47,7 +47,7 @@ vim.opt.listchars:append("eol:¬")
 
 -- [[ recovery files ]] --
 -- https://medium.com/@Aenon/vim-swap-backup-undo-git-2bf353caa02f
--- vim.o.updatetime = 300 -- time before writing to swapfile
+-- vim.o.updatetime = 300 -- duration before writing to swapfile
 vim.o.swapfile = false
 vim.o.backup = false
 vim.o.writebackup = false
@@ -57,7 +57,7 @@ vim.o.undofile = true
 vim.o.number = true -- always show line numbers
 vim.o.signcolumn = "yes"
 vim.o.showmode = false -- do not show -- MODE -- in cmdline
--- vim.o.cmdheight = 2 -- height of the command line
+vim.o.cmdheight = 2 -- height of the command line (useful for seeing error messages)
 vim.o.colorcolumn = "80"
 vim.o.cursorline = true
 vim.o.splitright = true
