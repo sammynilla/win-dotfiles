@@ -80,8 +80,8 @@ local vbl = { -- Visual Block and Line
   ["<Up>"] = "<nop>",
   ["<Right>"] = "<nop>",
   -- Move selected text from cursor up and down using Alt + {j,k}
-  ["<A-j>"] = [[:move ">+1<CR>gv-gv]],
-  ["<A-k>"] = [[:move "<-2<CR>gv-gv]],
+  ["<A-j>"] = [[:move '>+1<CR>gv-gv]],
+  ["<A-k>"] = [[:move '<-2<CR>gv-gv]],
   -- Cut entire block and move to non-volatile yank register.
   ["x"] = [["0x]],
 }
