@@ -35,7 +35,10 @@ return require("packer").startup({ function(use)
   use ({ "dstein64/vim-startuptime" }) -- system profiling
   use ({ "tpope/vim-commentary" }) -- motion based commenting
   use ({ "ntpeters/vim-better-whitespace" }) -- whitespace highlighting
-  use ({ "rktjmp/highlight-current-n.nvim" })
+  use ({
+    "rktjmp/highlight-current-n.nvim",
+    -- run = "",
+  })
 
   -- [[ theming ]] --
   use ({
@@ -66,10 +69,6 @@ return require("packer").startup({ function(use)
   -- [[ git ]] --
   use ({
     "lewis6991/gitsigns.nvim", -- git diff signs
-    event = "BufEnter",
-    config = function()
-      require("plugins.gitsigns")
-    end,
     run = ":luafile lua/plugins/gitsigns.lua",
   })
   use ({ "junegunn/gv.vim", requires = { "tpope/vim-fugitive" }, })
@@ -100,9 +99,6 @@ return require("packer").startup({ function(use)
   -- [[ writing ]] --
   use ({ "ellisonleao/glow.nvim" })
   use ({ "junegunn/limelight.vim" })
-
-  -- indentation and whitespace guides
-  -- use ({ "lukas-reineke/indent-blankline.nvim" })
 
   -- auto-sync if first time running.
   if PACKER_BOOTSTRAP ~= nil then

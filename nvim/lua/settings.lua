@@ -40,10 +40,11 @@ vim.opt.shortmess:append("I") -- disable nvim intro
 vim.o.timeoutlen = 500
 
 -- [[ files ]] --
+vim.o.encoding = "utf-8"
 vim.o.wrap = false -- don't wrap lines
 vim.o.showbreak = "↪ "
-vim.o.encoding = "utf-8"
-vim.opt.listchars:append("eol:¬")
+vim.o.list = true
+vim.o.listchars = "tab:|.,extends:>,precedes:<,nbsp:~,eol:↴"
 
 -- [[ recovery files ]] --
 -- https://medium.com/@Aenon/vim-swap-backup-undo-git-2bf353caa02f
