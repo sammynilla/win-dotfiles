@@ -2,7 +2,7 @@
 -- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetypes = 0
-local _, impatient = pcall(require, "impatient")
+pcall(require, "impatient")
 
 -- disable some built-in plugins that we don't need. increase load times.
 local disabled_plugins = {
@@ -46,7 +46,8 @@ vim.o.encoding = "utf-8"
 vim.o.wrap = false -- don't wrap lines
 vim.o.showbreak = "↪ "
 vim.o.list = true
-vim.o.listchars = "tab:|.,extends:>,precedes:<,nbsp:~,eol:↴"
+vim.o.listchars = "tab:»·,extends:…,precedes:<,extends:>,nbsp:␣,eol:↴"
+-- vim.opt.listchars:append("space:·,trail:·")
 
 -- [[ recovery files ]] --
 -- https://medium.com/@Aenon/vim-swap-backup-undo-git-2bf353caa02f
@@ -60,7 +61,7 @@ vim.o.undofile = true
 vim.o.number = true -- always show line numbers
 vim.o.signcolumn = "yes"
 vim.o.showmode = false -- do not show -- MODE -- in cmdline
-vim.o.cmdheight = 2 -- height of the command line (useful for seeing error messages)
+vim.o.cmdheight = 2 -- height of the command line
 vim.o.colorcolumn = "80"
 vim.o.cursorline = true
 vim.o.splitright = true
