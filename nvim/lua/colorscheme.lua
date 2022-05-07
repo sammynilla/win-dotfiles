@@ -1,20 +1,27 @@
 
 local ok, kanagawa = pcall(require, "kanagawa")
-if ok then
-  kanagawa.setup({
-    undercurl = false,
-    commentStyle = "NONE",
-    -- functionStyle = "NONE",
-    keywordStyle = "NONE",
-    statementStyle = "NONE",
-    -- typeStyle = "NONE",
-    variablebuiltinStyle = "NONE",
-    -- specialReturn = true,
-    -- specialException = true,
-    dimInactive = true,
-    -- globalStatus = false,
-  })
+if not ok then
+  return
 end
+
+local base_colors = require("kanagawa.colors").setup()
+local overrides = {
+  Pmenu = { fg = base_colors.fg_menu, bg = base_colors.sumiInk0 },
+}
+kanagawa.setup({
+  undercurl = false,
+  commentStyle = "NONE",
+  -- functionStyle = "NONE",
+  keywordStyle = "NONE",
+  statementStyle = "NONE",
+  -- typeStyle = "NONE",
+  variablebuiltinStyle = "NONE",
+  -- specialReturn = true,
+  -- specialException = true,
+  dimInactive = true,
+  -- globalStatus = false,
+  overrides = overrides,
+})
 
 vim.cmd([[
 try
