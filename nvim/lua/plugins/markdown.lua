@@ -1,5 +1,5 @@
 
--- Plugin: vim-markdown, vim-pandoc-syntax
+-- Plugins: vim-markdown, vim-pandoc-syntax
 -- https://github.com/preservim/vim-markdown
 -- https://github.com/vim-pandoc/vim-pandoc-syntax
 

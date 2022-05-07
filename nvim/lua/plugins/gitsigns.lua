@@ -1,5 +1,5 @@
 
--- Plugin manager: gitsigns.nvim
+-- Plugin: gitsigns.nvim
 -- https://github.com/lewis6991/gitsigns.nvim
 
 local ok, gitsigns = pcall(require, 'gitsigns')
