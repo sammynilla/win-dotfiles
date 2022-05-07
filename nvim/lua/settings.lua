@@ -8,6 +8,7 @@ local _, impatient = pcall(require, "impatient")
 local disabled_plugins = {
   "gzip",
   "man",
+  "gzip",
   "zip",
   "zipPlugin",
   "shada_plugin",
@@ -17,6 +18,7 @@ local disabled_plugins = {
   "tutor_mode_plugin",
   "matchit",
   "netrwPlugin",
+  "spellfile_plugin",
 }
 
 for _, plugin in pairs(disabled_plugins) do
