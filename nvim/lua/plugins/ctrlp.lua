@@ -2,7 +2,7 @@
 -- Plugin: ctrlp.vim
 -- https://github.com/ctrlpvim/ctrlp.vim
 
-vim.g.ctrlp_line_prefix = "█ "
+vim.g.ctrlp_line_prefix = "█"
 
 local rg_ignored_glob = "**/.git/*,**/node_modules/**"
 if vim.fn.executable("rg") then
