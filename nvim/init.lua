@@ -23,9 +23,12 @@ require("plugins.gitsigns")
 require("plugins.ctrlp")
 require("plugins.markdown")
 
-local au = require("au")
-au.group("ClearSearchHL", {
-  { "CmdlineLeave", "/,\\?", "lua require(\"highlight_current_n\")[\"/,?\"]()", }
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  callback = function()
+    require("highlight_current_n")["/,?"]()
+  end,
+  group = vim.api.nvim_create_augroup("ClearSearchHL", { clear = true, }),
+  pattern = "/,\\?",
 })
 
 local opts = { noremap = true, silent = true }

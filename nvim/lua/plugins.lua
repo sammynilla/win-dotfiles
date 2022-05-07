@@ -18,9 +18,10 @@ if fn.empty(fn.glob(install_path)) > 0 then
 end
 
 -- auto-compile
-local au = require("au")
-au.group("PackerGroup", {
-  { "BufWritePost", "plugins.lua", "source <afile> | PackerCompile" },
+vim.api.nvim_create_autocmd("BufWritePost", {
+  command = "source <afile> | PackerCompile",
+  pattern = "plugins.lua",
+  group = vim.api.nvim_create_augroup("Packer", { clear = true, }),
 })
 
 require("packer").init({
@@ -32,7 +33,10 @@ return require("packer").startup({ function(use)
   use ({ "wbthomason/packer.nvim" })
   use ({ "lewis6991/impatient.nvim" })
   use ({ "dstein64/vim-startuptime" }) -- system profiling
-  use ({ "tpope/vim-commentary" }) -- motion based commenting
+  use ({ -- motion based commenting
+    "tpope/vim-commentary",
+    event = "BufRead",
+  })
   use ({ "ntpeters/vim-better-whitespace" }) -- whitespace highlighting
   use ({ "rktjmp/highlight-current-n.nvim" })
 
@@ -89,6 +93,45 @@ return require("packer").startup({ function(use)
   })
   use ({ "preservim/vim-markdown" })
   use ({ "vim-pandoc/vim-pandoc-syntax" })
+
+  -- [[ lsp and autocompletion ]] --
+  use ({
+    "neovim/nvim-lspconfig",
+    config = function()
+      local runtime_path = vim.split(package.path, ";")
+      table.insert(runtime_path, "lua/?.lua")
+      table.insert(runtime_path, "lua/?/init.lua")
+      require("lspconfig").sumneko_lua.setup({
+        settings = {
+          Lua = {
+            runtime = { version = "LuaJIT", path = runtime_path, },
+            diagnostics = { globals = { "vim", }, },
+            workspace = { library = vim.api.nvim_get_runtime_file("", true), },
+            telemetry = { enable = false, },
+          }
+        }
+      })
+    end,
+  })
+  use ({
+    "williamboman/nvim-lsp-installer",
+    config = function()
+      local ok, lsp_installer = pcall(require, "nvim-lsp-installer")
+      if ok then
+        lsp_installer.setup({
+          ensure_installed = { "sumneko_lua", },
+          -- automatic_installation = true,
+          ui = {
+            icons = {
+              server_installed = "✓",
+              server_pending = "➜",
+              server_uninstalled = "✗"
+            }
+          }
+        })
+      end
+    end,
+  })
 
   -- [[ text editing ]] --
   use ({ "windwp/nvim-ts-autotag", after = "nvim-treesitter", })
