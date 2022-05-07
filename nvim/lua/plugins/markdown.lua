@@ -36,8 +36,9 @@ vim.g.vim_markdown_fenced_languages = {
   "ini=dosini"
 }
 
-local au = require("au")
-au.group("pandoc_syntax", {
-  { "BufNewFile,BufFilePre,BufRead", "*.md", "set filetype=markdown.pandoc" },
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufFilePre", "BufRead" }, {
+  command = "set filetype=markdown.pandoc",
+  pattern = { "*.md" },
+  group = vim.api.nvim_create_augroup("pandoc_syntax", { clear = true, }),
 })
 
