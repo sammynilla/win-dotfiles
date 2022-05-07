@@ -2,8 +2,9 @@
 -- Plugin: nvim-treesitter
 -- https://github.com/nvim-treesitter/nvim-treesitter
 
+-- NOTE: "c" parser is installed by default
 local installed_languages = {
-  "c", "cpp",
+  "cpp",
   "lua",
   "vim"
 }
