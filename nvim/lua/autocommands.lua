@@ -1,11 +1,9 @@
 
-local augroup_common = vim.api.nvim_create_augroup("user_common", { clear = true })
+local augroup_common = vim.api.nvim_create_augroup("user_common", {})
 
 vim.api.nvim_create_autocmd("TextYankPost", {
-  callback = function()
-    vim.highlight.on_yank({ higroup = "IncSearch", timeout = 300 })
-  end,
-  group = vim.api.nvim_create_augroup("YankHighlight", { clear = true, }),
+  callback = function() vim.highlight.on_yank() end,
+  group = vim.api.nvim_create_augroup("YankHighlight", {}),
 })
 
 vim.api.nvim_create_autocmd("BufEnter", {

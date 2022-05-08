@@ -39,6 +39,6 @@ vim.g.vim_markdown_fenced_languages = {
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufFilePre", "BufRead" }, {
   command = "set filetype=markdown.pandoc",
   pattern = { "*.md" },
-  group = vim.api.nvim_create_augroup("pandoc_syntax", { clear = true, }),
+  group = vim.api.nvim_create_augroup("pandoc_syntax", {}),
 })
 

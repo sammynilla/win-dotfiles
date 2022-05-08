@@ -27,7 +27,7 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
   callback = function()
     require("highlight_current_n")["/,?"]()
   end,
-  group = vim.api.nvim_create_augroup("ClearSearchHL", { clear = true, }),
+  group = vim.api.nvim_create_augroup("ClearSearchHL", {}),
   pattern = "/,\\?",
 })
 
