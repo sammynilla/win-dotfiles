@@ -1,101 +1,54 @@
 
-local map = vim.api.nvim_set_keymap
-local opts = { noremap = true, silent = true }
+vim.g.mapleader = " "
 
-local n = {
-  -- Disable arrow keys in normal mode. Use {h,j,k,l}
-  ["<Left>"] = "<nop>",
-  ["<Down>"] = "<nop>",
-  ["<Up>"] = "<nop>",
-  ["<Right>"] = "<nop>",
-  -- Move around buffer splits with Ctrl + {h,j,k,l}
-  ["<C-h>"] = "<C-w>h",
-  ["<C-j>"] = "<C-w>j",
-  ["<C-k>"] = "<C-w>k",
-  ["<C-l>"] = "<C-w>l",
-  -- Resize buffer splits with Ctrl + arrow
-  ["<C-Left>"] = ":vertical resize -2<CR>",
-  ["<C-Down>"] = ":resize +2<CR>",
-  ["<C-Up>"] = ":resize -2<CR>",
-  ["<C-Right>"] = ":vertical resize +2<CR>",
-  -- Save current buffer file with Ctrl + {s}
-  ["<C-s>"] = ":w<CR>",
-  -- Paste from non-volatile yank register
-  ["p"] = [["0p]],
-  ["P"] = [["0p]],
-  -- Paste from system clipboard
-  ["<A-p>"] = [["*p]],
-  -- Bug fix? On windows Ctrl + {z} causes terminal to freeze
-  ["<C-z>"] = "<nop>",
-  -- Disable annoying "ex" mode
-  ["<S-Q>"] = "<nop>",
-}
+local map = vim.keymap.set
 
-for key, val in pairs(n) do
-  map("n", key, val, opts)
-end
+-- [[ disabled keybinds ]] --
+map({ "n", "i", "v", "x" }, "<Left>",  "<nop>", { noremap = true })
+map({ "n", "i", "v", "x" }, "<Down>",  "<nop>", { noremap = true })
+map({ "n", "i", "v", "x" }, "<Up>",    "<nop>", { noremap = true })
+map({ "n", "i", "v", "x" }, "<Right>", "<nop>", { noremap = true })
+map({ "n", "i", "v", "x" }, "<C-z>",   "<nop>", { noremap = true })
+map({ "n", "v", "x" }, "<S-K>", "<nop>", { noremap = true }) -- no man search
+map("n", "<S-Q>", "<nop>", { noremap = true }) -- no "ex" mode
+map("i", "<ESC>", "<nop>", { noremap = true })
 
-local i = {
-  -- STOP using arrow keys!
-  ["<Left>"] = "<nop>",
-  ["<Down>"] = "<nop>",
-  ["<Up>"] = "<nop>",
-  ["<Right>"] = "<nop>",
-  -- Prevent myself from using Escape.
-  ["<ESC>"] = "<nop>",
-  ["kj"] = "<ESC>",
-}
+-- [[ normal mode keybinds ]]
+map("n", "<C-h>", "<C-w>h", { noremap = true })
+map("n", "<C-j>", "<C-w>j", { noremap = true })
+map("n", "<C-k>", "<C-w>k", { noremap = true })
+map("n", "<C-l>", "<C-w>l", { noremap = true })
+map("n", "<C-Left>", ":vertical resize -2<cr>", { noremap = true })
+map("n", "<C-Down>", ":resize +2<cr>", { noremap = true })
+map("n", "<C-Up>", ":resize -2<cr>", { noremap = true })
+map("n", "<C-Right>", ":vertical resize +2<cr>", { noremap = true })
+map("n", "<C-s>", ":w<cr>", { noremap = true, silent = true })
+map("n", "<A-p>", "\"*p", { noremap = true }) -- system clipboard paste
 
-for key, val in pairs(i) do
-  map("i", key, val, opts)
-end
+-- [[ interactive mode keybinds ]] --
+map("i", "kj", "<ESC>", { noremap = true })
+map("i", "<Tab>", function()
+  return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
+end, { expr = true })
 
-local v = {
-  -- STOP using arrow keys!
-  ["<Left>"] = "<nop>",
-  ["<Down>"] = "<nop>",
-  ["<Up>"] = "<nop>",
-  ["<Right>"] = "<nop>",
-  -- Shift indents in visual mode
-  ["<"] = "<gv",
-  [">"] = ">gv",
-  -- Move selected text from cursor up and down using Alt + {j,k}
-  ["<A-j>"] = ":m .+1<CR>==",
-  ["<A-k>"] = ":m .-2<CR>==",
-  -- Paste from non-volatile yank register
-  ["p"] = [["0p]],
-  ["P"] = [["0p]],
-  -- Cut entire block and move to non-volatile yank register.
-  ["x"] = [["0x]],
-}
+-- [[ visual mode keybinds ]] --
+map("v", "<", "<gv", { noremap = true })
+map("v", ">", ">gv", { noremap = true })
+map("v", "<A-j>", ":m .+1<cr>==", { noremap = true, silent = true })
+map("v", "<A-k>", ":m .-2<cr>==", { noremap = true, silent = true })
 
-for key, val in pairs(v) do
-  map("v", key, val, opts)
-end
+-- [[ visual-block mode keybinds ]] --
+map("x", "<A-j>", ":move '>+1<cr>gv-gv", { noremap = true, silent = true })
+map("x", "<A-k>", ":move '<-2<cr>gv-gv", { noremap = true, silent = true })
 
-local vbl = { -- Visual Block and Line
-  -- STOP using arrow keys!
-  ["<Left>"] = "<nop>",
-  ["<Down>"] = "<nop>",
-  ["<Up>"] = "<nop>",
-  ["<Right>"] = "<nop>",
-  -- Move selected text from cursor up and down using Alt + {j,k}
-  ["<A-j>"] = [[:move '>+1<CR>gv-gv]],
-  ["<A-k>"] = [[:move '<-2<CR>gv-gv]],
-  -- Cut entire block and move to non-volatile yank register.
-  ["x"] = [["0x]],
-}
+-- [[ multi-mode keybinds ]] --
+map({ "n", "v" }, "p", "\"0p", { noremap = true }) -- non-volatile yank paste
+map({ "n", "v" }, "P", "\"0p", { noremap = true })
+map({ "v", "x" }, "x", "\"0x", { noremap = true }) -- non-volatile yank cut
 
-for key, val in pairs(vbl) do
-  map("x", key, val, opts)
-end
-
-local t = {
-  -- Temporary use of Escape to close the buffer for the terminal.
-  ["<ESC>"] = [[<C-\><C-n>:bd!<CR>]],
-}
-
-for key, val in pairs(t) do
-  map("t", key, val, opts)
-end
+-- [[ plugin keybinds ]] --
+map("n", "n", function() require("highlight_current_n").n() end, { noremap = true })
+map("n", "N", function() require("highlight_current_n").N() end, { noremap = true })
+map("n", "<C-o>", ":CtrlPMRUFiles<cr>", { noremap = true })
+map("n", "<C-b>", ":CtrlPBuffer<cr>", { noremap = true })
 

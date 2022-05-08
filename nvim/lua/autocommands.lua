@@ -6,8 +6,11 @@ vim.api.nvim_create_autocmd("TextYankPost", {
   group = vim.api.nvim_create_augroup("YankHighlight", {}),
 })
 
-vim.api.nvim_create_autocmd("BufEnter", {
-  command = "set fo-=c fo-=r fo-=o",
+-- disable comment newline
+vim.api.nvim_create_autocmd("BufWinEnter", {
+  callback = function()
+    vim.opt_local.formatoptions:remove({ "c", "r", "o" })
+  end,
   pattern = { "*" },
   group = augroup_common,
 })
@@ -30,9 +33,26 @@ vim.api.nvim_create_autocmd("FileType", {
   group = augroup_common,
 })
 
-vim.api.nvim_create_autocmd({ "BufNewFile", "BufRead" }, {
-  callback = function() vim.bo.filetype = "json" end,
-  pattern = { ".eslintrc", ".prettierrc", "*.json*", },
-  group = augroup_common,
+-- [[ plugin auto-commands ]] --
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufFilePre", "BufRead" }, {
+  command = "set filetype=markdown.pandoc",
+  pattern = { "*.md" },
+  group = vim.api.nvim_create_augroup("pandoc_syntax", {}),
+})
+
+-- applies highlight at cursor after search
+vim.api.nvim_create_autocmd("CmdlineLeave", {
+  callback = function()
+    require("highlight_current_n")["/,?"]()
+  end,
+  group = vim.api.nvim_create_augroup("ClearSearchHL", {}),
+  pattern = "/,\\?",
+})
+
+-- auto-compile our packer configuration
+vim.api.nvim_create_autocmd("BufWritePost", {
+  command = "source <afile> | PackerCompile",
+  pattern = "plugins.lua",
+  group = vim.api.nvim_create_augroup("packer", {}),
 })
 

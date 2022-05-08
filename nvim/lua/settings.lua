@@ -86,3 +86,5 @@ vim.o.ignorecase = true -- ignore case when searching with / or ?
 vim.o.smartcase = true  -- ignore case if search pattern is all lowercase, case-sensitive otherwise
 vim.opt.shortmess:append("s") -- dont give search hit bottom messages
 
+require("colorscheme")
+

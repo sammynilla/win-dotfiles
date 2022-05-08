@@ -17,13 +17,6 @@ if fn.empty(fn.glob(install_path)) > 0 then
   vim.api.nvim_command("packadd packer.nvim")
 end
 
--- auto-compile
-vim.api.nvim_create_autocmd("BufWritePost", {
-  command = "source <afile> | PackerCompile",
-  pattern = "plugins.lua",
-  group = vim.api.nvim_create_augroup("packer", {}),
-})
-
 require("packer").init({
   autoremove = true, -- remove disabled or unused plugins without a prompt
 })
@@ -33,8 +26,8 @@ return require("packer").startup({ function(use)
   use ({ "wbthomason/packer.nvim" })
   use ({ "lewis6991/impatient.nvim" })
   use ({ "dstein64/vim-startuptime" }) -- system profiling
-  use ({ -- motion based commenting
-    "tpope/vim-commentary",
+  use ({
+    "tpope/vim-commentary", -- motion based commenting
     event = "BufRead",
   })
   use ({ "ntpeters/vim-better-whitespace" }) -- whitespace highlighting
@@ -59,7 +52,10 @@ return require("packer").startup({ function(use)
   })
 
   -- [[ navigation ]] --
-  use ({ "ctrlpvim/ctrlp.vim" }) -- fuzzy finder
+  use ({
+    "ctrlpvim/ctrlp.vim", -- fuzzy finder
+    config = function() require("plugins.ctrlp") end,
+  })
   use ({
     "nacro90/numb.nvim", -- jump to line numbers
     event = "CmdlineEnter",
@@ -74,7 +70,6 @@ return require("packer").startup({ function(use)
     "lewis6991/gitsigns.nvim", -- git diff signs
     event = "BufRead",
     config = function() require("plugins.gitsigns") end,
-    run = function() require("plugins.gitsigns") end,
   })
   use ({
     "junegunn/gv.vim",
