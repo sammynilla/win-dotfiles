@@ -72,7 +72,9 @@ return require("packer").startup({ function(use)
   -- [[ git ]] --
   use ({
     "lewis6991/gitsigns.nvim", -- git diff signs
-    run = ":luafile lua/plugins/gitsigns.lua",
+    event = "BufRead",
+    config = function() require("plugins.gitsigns") end,
+    run = function() require("plugins.gitsigns") end,
   })
   use ({
     "junegunn/gv.vim",
@@ -95,43 +97,43 @@ return require("packer").startup({ function(use)
   use ({ "vim-pandoc/vim-pandoc-syntax" })
 
   -- [[ lsp and autocompletion ]] --
-  use ({
-    "neovim/nvim-lspconfig",
-    config = function()
-      local runtime_path = vim.split(package.path, ";")
-      table.insert(runtime_path, "lua/?.lua")
-      table.insert(runtime_path, "lua/?/init.lua")
-      require("lspconfig").sumneko_lua.setup({
-        settings = {
-          Lua = {
-            runtime = { version = "LuaJIT", path = runtime_path, },
-            diagnostics = { globals = { "vim", }, },
-            workspace = { library = vim.api.nvim_get_runtime_file("", true), },
-            telemetry = { enable = false, },
-          }
-        }
-      })
-    end,
-  })
-  use ({
-    "williamboman/nvim-lsp-installer",
-    config = function()
-      local ok, lsp_installer = pcall(require, "nvim-lsp-installer")
-      if ok then
-        lsp_installer.setup({
-          ensure_installed = { "sumneko_lua", },
-          -- automatic_installation = true,
-          ui = {
-            icons = {
-              server_installed = "✓",
-              server_pending = "➜",
-              server_uninstalled = "✗"
-            }
-          }
-        })
-      end
-    end,
-  })
+  -- use ({
+  --   "williamboman/nvim-lsp-installer",
+  --   config = function()
+  --     local ok, lsp_installer = pcall(require, "nvim-lsp-installer")
+  --     if ok then
+  --       lsp_installer.setup({
+  --         ensure_installed = { "sumneko_lua", },
+  --         -- automatic_installation = true,
+  --         ui = {
+  --           icons = {
+  --             server_installed = "✓",
+  --             server_pending = "➜",
+  --             server_uninstalled = "✗"
+  --           }
+  --         }
+  --       })
+  --     end
+  --   end,
+  -- })
+  -- use ({
+  --   "neovim/nvim-lspconfig",
+  --   config = function()
+  --     local runtime_path = vim.split(package.path, ";")
+  --     table.insert(runtime_path, "lua/?.lua")
+  --     table.insert(runtime_path, "lua/?/init.lua")
+  --     require("lspconfig").sumneko_lua.setup({
+  --       settings = {
+  --         Lua = {
+  --           runtime = { version = "LuaJIT", path = runtime_path, },
+  --           diagnostics = { globals = { "vim", }, },
+  --           workspace = { library = vim.api.nvim_get_runtime_file("", true), },
+  --           telemetry = { enable = false, },
+  --         }
+  --       }
+  --     })
+  --   end,
+  -- })
 
   -- [[ text editing ]] --
   use ({ "windwp/nvim-ts-autotag", after = "nvim-treesitter", })

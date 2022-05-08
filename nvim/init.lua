@@ -19,7 +19,6 @@ require("keymaps")
 require("colorscheme")
 -- [[ plugins ]] --
 require("plugins")
-require("plugins.gitsigns")
 require("plugins.ctrlp")
 require("plugins.markdown")
 
