@@ -88,7 +88,10 @@ return require("packer").startup({ function(use)
     "JoosepAlviste/nvim-ts-context-commentstring",
     after = "nvim-treesitter",
   })
-  use ({ "preservim/vim-markdown" })
+  use ({
+    "preservim/vim-markdown",
+    config = function() require("plugins.markdown") end,
+  })
   use ({ "vim-pandoc/vim-pandoc-syntax" })
 
   -- [[ lsp and autocompletion ]] --
