@@ -52,7 +52,7 @@ vim.api.nvim_create_autocmd("CmdlineLeave", {
 -- auto-compile our packer configuration
 vim.api.nvim_create_autocmd("BufWritePost", {
   command = "source <afile> | PackerCompile",
-  pattern = "plugins.lua",
+  pattern = "lua/plugins/init.lua",
   group = vim.api.nvim_create_augroup("packer", {}),
 })
 

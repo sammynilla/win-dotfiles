@@ -4,9 +4,9 @@
 
 -- NOTE: "c" parser is installed by default
 local installed_languages = {
-  "cpp",
-  "lua",
-  "vim"
+  -- "cpp",
+  -- "lua",
+  -- "vim"
 }
 
 require("nvim-treesitter.install").prefer_git = true

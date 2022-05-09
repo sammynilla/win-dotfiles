@@ -17,82 +17,79 @@ if fn.empty(fn.glob(install_path)) > 0 then
   vim.api.nvim_command("packadd packer.nvim")
 end
 
-require("packer").init({
+local ok, packer = pcall(require, "packer")
+if not ok then
+  return
+end
+
+packer.init({
+  display = {
+    open_fn = function()
+      return require("packer.util").float({ border = "single" })
+    end,
+    prompt_border = "single",
+  },
+  git = { clone_timeout = 600, },
   autoremove = true, -- remove disabled or unused plugins without a prompt
+  -- compile_on_sync = false,
 })
 
-return require("packer").startup({ function(use)
-  -- [[ general ]] --
+return packer.startup(function(use)
   use ({ "wbthomason/packer.nvim" })
   use ({ "lewis6991/impatient.nvim" })
-  use ({ "dstein64/vim-startuptime" }) -- system profiling
-  use ({
-    "tpope/vim-commentary", -- motion based commenting
-    event = "BufRead",
-  })
-  use ({ "ntpeters/vim-better-whitespace" }) -- whitespace highlighting
-  use ({ "rktjmp/highlight-current-n.nvim" })
 
-  -- [[ theming ]] --
+  -- [[ user interface ]] --
+  use ({ "rebelot/kanagawa.nvim", run = ":luafile lua/colorscheme.lua", })
   use ({
-    "rebelot/kanagawa.nvim", -- color theme
-    run = ":luafile lua/colorscheme.lua",
-  })
-  use ({
-    "crispgm/nvim-tabline", -- tabline
-    config = function()
-      local ok, tabline = pcall(require, "tabline")
-      if ok then tabline.setup({}) end
-    end,
+    "crispgm/nvim-tabline",
+    config = function() require("tabline").setup({}) end,
   })
   use ({
     "gelguy/wilder.nvim", -- popup menu
     event = "CmdlineEnter",
-    config = function() require("plugins.wilder") end,
+    config = function() require("plugins.configs.wilder") end,
   })
 
-  -- [[ navigation ]] --
-  use ({
-    "ctrlpvim/ctrlp.vim", -- fuzzy finder
-    config = function() require("plugins.ctrlp") end,
-  })
-  use ({
-    "nacro90/numb.nvim", -- jump to line numbers
-    event = "CmdlineEnter",
-    config = function()
-      local ok, numb = pcall(require, "numb")
-      if ok then numb.setup() end
-    end,
-  })
+  -- [[ comment ]] --
+  use ({ "tpope/vim-commentary", event = "BufRead", })
 
-  -- [[ git ]] --
-  use ({
-    "lewis6991/gitsigns.nvim", -- git diff signs
-    event = "BufRead",
-    config = function() require("plugins.gitsigns") end,
-  })
-  use ({
-    "junegunn/gv.vim",
-    event = "CmdlineEnter",
-    requires = { "tpope/vim-fugitive" },
-  })
-
-  -- [[ syntax highlighting ]] --
+  -- [[ syntax ]] --
   use ({
     "nvim-treesitter/nvim-treesitter",
     event = "BufRead",
-    config = function() require("plugins.nvim-treesitter") end,
-    run = function() require("plugins.nvim-treesitter") end,
+    config = function() require("plugins.configs.nvim-treesitter") end,
+    run = function() require("plugins.configs.nvim-treesitter") end,
   })
+  use ({ "windwp/nvim-ts-autotag", after = "nvim-treesitter", })
   use ({
     "JoosepAlviste/nvim-ts-context-commentstring",
     after = "nvim-treesitter",
   })
   use ({
     "preservim/vim-markdown",
-    config = function() require("plugins.markdown") end,
+    config = function() require("plugins.configs.markdown") end,
   })
   use ({ "vim-pandoc/vim-pandoc-syntax" })
+  use ({
+    "windwp/nvim-autopairs",
+    event = "InsertEnter",
+    config = function() require("nvim-autopairs").setup() end,
+  })
+
+  -- [[ utilities ]] --
+  use ({ "dstein64/vim-startuptime" })
+  use ({ "ntpeters/vim-better-whitespace" })
+  use ({ "rktjmp/highlight-current-n.nvim", event = "CmdlineEnter", })
+  use ({ "junegunn/limelight.vim", event = "CmdlineEnter", })
+  use ({
+    "ctrlpvim/ctrlp.vim", -- fuzzy finder
+    config = function() require("plugins.configs.ctrlp") end,
+  })
+  use ({
+    "nacro90/numb.nvim", -- jump to line numbers
+    event = "CmdlineEnter",
+    config = function() require("numb").setup() end,
+  })
 
   -- [[ lsp and autocompletion ]] --
   -- use ({
@@ -133,31 +130,22 @@ return require("packer").startup({ function(use)
   --   end,
   -- })
 
-  -- [[ text editing ]] --
-  use ({ "windwp/nvim-ts-autotag", after = "nvim-treesitter", })
+  -- [[ git ]] --
   use ({
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = function()
-      local ok, autopairs = pcall(require, "nvim-autopairs")
-      if ok then autopairs.setup() end
-    end,
+    "lewis6991/gitsigns.nvim", -- git diff signs
+    event = "BufRead",
+    config = function() require("plugins.configs.gitsigns") end,
   })
-
-  -- [[ writing ]] --
-  use ({ "junegunn/limelight.vim", event = "CmdlineEnter", })
+  use ({
+    "junegunn/gv.vim",
+    event = "CmdlineEnter",
+    requires = { "tpope/vim-fugitive" },
+  })
 
   -- auto-sync if first time running.
   if PACKER_BOOTSTRAP ~= nil then
-    require("packer").sync()
+    packer.sync()
     PACKER_BOOTSTRAP = nil
   end
-end,
-config = {
-  display = {
-    open_fn = function()
-      return require("packer.util").float({ border = "single" })
-    end
-  }
-}})
+end)
 
