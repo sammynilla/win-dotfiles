@@ -54,6 +54,5 @@ map({ "v", "x" }, "x", "\"0x") -- non-volatile yank cut
 -- [[ plugin keybinds ]] --
 map("n", "n", function() require("highlight_current_n").n() end)
 map("n", "N", function() require("highlight_current_n").N() end)
-map("n", "<C-o>", ":CtrlPMRUFiles<cr>")
-map("n", "<C-b>", ":CtrlPBuffer<cr>")
+-- map("n", "<C-b>", ":CtrlPBuffer<cr>")
 

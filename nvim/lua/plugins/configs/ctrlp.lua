@@ -2,6 +2,7 @@
 -- Plugin: ctrlp.vim
 -- https://github.com/ctrlpvim/ctrlp.vim
 
+vim.g.ctrlp_types = { "fil", "buf", }
 vim.g.ctrlp_line_prefix = "█"
 
 local rg_ignored_glob = "**/.git/*,**/node_modules/**"
