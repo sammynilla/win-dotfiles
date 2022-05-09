@@ -17,9 +17,21 @@ if fn.empty(fn.glob(install_path)) > 0 then
   vim.api.nvim_command("packadd packer.nvim")
 end
 
+-- handle edge-case where initial startup happens without a connection
 local ok, packer = pcall(require, "packer")
 if not ok then
   return
+end
+
+function default_package_setup(package_id, config)
+  local ok, package = pcall(require, package_id)
+  if ok then
+    if config ~= nil then
+      package.setup(config)
+      return
+    end
+    package.setup()
+  end
 end
 
 packer.init({
@@ -42,11 +54,10 @@ return packer.startup(function(use)
   use ({ "rebelot/kanagawa.nvim", run = ":luafile lua/colorscheme.lua", })
   use ({
     "crispgm/nvim-tabline",
-    config = function() require("tabline").setup({}) end,
+    config = function() default_package_setup("tabline", {}) end,
   })
-  use ({
-    "gelguy/wilder.nvim", -- popup menu
-    event = "CmdlineEnter",
+  use ({ -- popup menu
+    "gelguy/wilder.nvim", event = "CmdlineEnter",
     config = function() require("plugins.configs.wilder") end,
   })
 
@@ -70,26 +81,29 @@ return packer.startup(function(use)
     config = function() require("plugins.configs.markdown") end,
   })
   use ({ "vim-pandoc/vim-pandoc-syntax" })
-  use ({
-    "windwp/nvim-autopairs",
-    event = "InsertEnter",
-    config = function() require("nvim-autopairs").setup() end,
-  })
 
   -- [[ utilities ]] --
   use ({ "dstein64/vim-startuptime" })
   use ({ "ntpeters/vim-better-whitespace" })
   use ({ "rktjmp/highlight-current-n.nvim", event = "CmdlineEnter", })
-  use ({ "junegunn/limelight.vim", event = "CmdlineEnter", })
   use ({
-    "ctrlpvim/ctrlp.vim", -- fuzzy finder
+    "windwp/nvim-autopairs", event = "InsertEnter",
+    config = function() default_package_setup("nvim-autopairs", nil) end,
+  })
+
+  use ({ -- TODO: look over the configurations for this
+    "norcalli/nvim-colorizer.lua", event = "BufEnter",
+    config = function() default_package_setup("colorizer", nil) end,
+  })
+  use ({
+    "ctrlpvim/ctrlp.vim",
     config = function() require("plugins.configs.ctrlp") end,
   })
-  use ({
-    "nacro90/numb.nvim", -- jump to line numbers
-    event = "CmdlineEnter",
+  use ({ -- jump to line numbers
+    "nacro90/numb.nvim", event = "CmdlineEnter",
     config = function() require("numb").setup() end,
   })
+  use ({ "junegunn/limelight.vim", event = "CmdlineEnter", })
 
   -- [[ lsp and autocompletion ]] --
   -- use ({
@@ -98,7 +112,13 @@ return packer.startup(function(use)
   --     local ok, lsp_installer = pcall(require, "nvim-lsp-installer")
   --     if ok then
   --       lsp_installer.setup({
-  --         ensure_installed = { "sumneko_lua", },
+  --         ensure_installed = {
+  --           "bashls",
+  --           "sumneko_lua",
+  --           "cssls",
+  --           "html",
+  --           "jsonls",
+  --         },
   --         -- automatic_installation = true,
   --         ui = {
   --           icons = {
@@ -132,13 +152,11 @@ return packer.startup(function(use)
 
   -- [[ git ]] --
   use ({
-    "lewis6991/gitsigns.nvim", -- git diff signs
-    event = "BufRead",
+    "lewis6991/gitsigns.nvim", event = "BufRead",
     config = function() require("plugins.configs.gitsigns") end,
   })
   use ({
-    "junegunn/gv.vim",
-    event = "CmdlineEnter",
+    "junegunn/gv.vim", event = "CmdlineEnter",
     requires = { "tpope/vim-fugitive" },
   })
 
