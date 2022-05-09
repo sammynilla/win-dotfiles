@@ -10,6 +10,7 @@ map({ "n", "i", "v", "x" }, "<Up>",    "<nop>", { noremap = true })
 map({ "n", "i", "v", "x" }, "<Right>", "<nop>", { noremap = true })
 map({ "n", "i", "v", "x" }, "<C-z>",   "<nop>", { noremap = true })
 map({ "n", "v", "x" }, "<S-K>", "<nop>", { noremap = true }) -- no man search
+map("n", "q:",    "<nop>", { noremap = true }) -- no command history display
 map("n", "<S-Q>", "<nop>", { noremap = true }) -- no "ex" mode
 map("i", "<ESC>", "<nop>", { noremap = true })
 
