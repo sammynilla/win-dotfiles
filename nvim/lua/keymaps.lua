@@ -1,55 +1,59 @@
 
 vim.g.mapleader = " "
 
-local map = vim.keymap.set
+-- https://dev.to/voyeg3r/writing-useful-lua-functions-to-my-neovim-14ki
+local function map(mode, lhs, rhs, opts)
+  local options = { noremap = true }
+  if opts then options = vim.tbl_extend("force", options, opts) end
+  vim.keymap.set(mode, lhs, rhs, options)
+end
 
 -- [[ disabled keybinds ]] --
-map({ "n", "i", "v", "x" }, "<Left>",  "<nop>", { noremap = true })
-map({ "n", "i", "v", "x" }, "<Down>",  "<nop>", { noremap = true })
-map({ "n", "i", "v", "x" }, "<Up>",    "<nop>", { noremap = true })
-map({ "n", "i", "v", "x" }, "<Right>", "<nop>", { noremap = true })
-map({ "n", "i", "v", "x" }, "<C-z>",   "<nop>", { noremap = true })
-map({ "n", "v", "x" }, "<S-K>", "<nop>", { noremap = true }) -- no man search
-map({ "n", "v", "x" }, "q:", "<nop>", { noremap = true }) -- don't show old cmds
-map("n", "<S-Q>", "<nop>", { noremap = true }) -- no "ex" mode
-map("i", "<ESC>", "<nop>", { noremap = true })
+map({ "n", "i", "v", "x" }, "<Left>",  "<nop>")
+map({ "n", "i", "v", "x" }, "<Down>",  "<nop>")
+map({ "n", "i", "v", "x" }, "<Up>",    "<nop>")
+map({ "n", "i", "v", "x" }, "<Right>", "<nop>")
+map({ "n", "i", "v", "x" }, "<C-z>",   "<nop>")
+map({ "n", "v", "x" }, "<S-K>", "<nop>") -- no man search
+map({ "n", "v", "x" }, "q:", "<nop>") -- don't display old command usage
+map("n", "<S-Q>", "<nop>") -- no "ex" mode
+map("i", "<ESC>", "<nop>")
 
 -- [[ normal mode keybinds ]]
-map("n", "<C-h>", "<C-w>h", { noremap = true })
-map("n", "<C-j>", "<C-w>j", { noremap = true })
-map("n", "<C-k>", "<C-w>k", { noremap = true })
-map("n", "<C-l>", "<C-w>l", { noremap = true })
-map("n", "<C-Left>", ":vertical resize -2<cr>", { noremap = true, silent = true })
-map("n", "<C-Down>", ":resize +2<cr>", { noremap = true, silent = true })
-map("n", "<C-Up>", ":resize -2<cr>", { noremap = true, silent = true })
-map("n", "<C-Right>", ":vertical resize +2<cr>", { noremap = true, silent = true })
-map("n", "<C-s>", ":w<cr>", { noremap = true, silent = true })
-map("n", "<A-p>", "\"*p", { noremap = true }) -- system clipboard paste
+map("n", "<C-h>", "<C-w>h")
+map("n", "<C-j>", "<C-w>j")
+map("n", "<C-k>", "<C-w>k")
+map("n", "<C-l>", "<C-w>l")
+map("n", "<C-Left>",  ":vertical resize -2<cr>", { silent = true })
+map("n", "<C-Down>",  ":resize +2<cr>", { silent = true })
+map("n", "<C-Up>",    ":resize -2<cr>", { silent = true })
+map("n", "<C-Right>", ":vertical resize +2<cr>", { silent = true })
+map("n", "<C-s>", ":w<cr>", { silent = true })
+map("n", "<A-p>", "\"*p") -- system clipboard paste
 
 -- [[ interactive mode keybinds ]] --
-map("i", "kj", "<ESC>", { noremap = true })
+map("i", "kj", "<ESC>")
 map("i", "<Tab>", function()
   return vim.fn.pumvisible() == 1 and "<C-n>" or "<Tab>"
 end, { expr = true })
 
 -- [[ visual mode keybinds ]] --
-map("v", "<", "<gv", { noremap = true })
-map("v", ">", ">gv", { noremap = true })
-map("v", "<A-j>", ":m .+1<cr>==", { noremap = true })
-map("v", "<A-k>", ":m .-2<cr>==", { noremap = true })
+map("v", "<", "<gv")
+map("v", ">", ">gv")
 
 -- [[ visual-block mode keybinds ]] --
-map("x", "<A-j>", ":move '>+1<cr>gv-gv", { noremap = true })
-map("x", "<A-k>", ":move '<-2<cr>gv-gv", { noremap = true })
+-- TODO: fix commands edge case not silencing top and bottom movement
+map("x", "<A-j>", ":move '>+1<cr>gv=gv", { silent = true })
+map("x", "<A-k>", ":move '<-2<cr>gv=gv", { silent = true })
 
 -- [[ multi-mode keybinds ]] --
-map({ "n", "v" }, "p", "\"0p", { noremap = true }) -- non-volatile yank paste
-map({ "n", "v" }, "P", "\"0p", { noremap = true })
-map({ "v", "x" }, "x", "\"0x", { noremap = true }) -- non-volatile yank cut
+map({ "n", "v" }, "p", "\"0p") -- non-volatile yank paste
+map({ "n", "v" }, "P", "\"0p")
+map({ "v", "x" }, "x", "\"0x") -- non-volatile yank cut
 
 -- [[ plugin keybinds ]] --
-map("n", "n", function() require("highlight_current_n").n() end, { noremap = true })
-map("n", "N", function() require("highlight_current_n").N() end, { noremap = true })
-map("n", "<C-o>", ":CtrlPMRUFiles<cr>", { noremap = true })
-map("n", "<C-b>", ":CtrlPBuffer<cr>", { noremap = true })
+map("n", "n", function() require("highlight_current_n").n() end)
+map("n", "N", function() require("highlight_current_n").N() end)
+map("n", "<C-o>", ":CtrlPMRUFiles<cr>")
+map("n", "<C-b>", ":CtrlPBuffer<cr>")
 
