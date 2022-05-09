@@ -19,10 +19,10 @@ map("n", "<C-h>", "<C-w>h", { noremap = true })
 map("n", "<C-j>", "<C-w>j", { noremap = true })
 map("n", "<C-k>", "<C-w>k", { noremap = true })
 map("n", "<C-l>", "<C-w>l", { noremap = true })
-map("n", "<C-Left>", ":vertical resize -2<cr>", { noremap = true })
-map("n", "<C-Down>", ":resize +2<cr>", { noremap = true })
-map("n", "<C-Up>", ":resize -2<cr>", { noremap = true })
-map("n", "<C-Right>", ":vertical resize +2<cr>", { noremap = true })
+map("n", "<C-Left>", ":vertical resize -2<cr>", { noremap = true, silent = true })
+map("n", "<C-Down>", ":resize +2<cr>", { noremap = true, silent = true })
+map("n", "<C-Up>", ":resize -2<cr>", { noremap = true, silent = true })
+map("n", "<C-Right>", ":vertical resize +2<cr>", { noremap = true, silent = true })
 map("n", "<C-s>", ":w<cr>", { noremap = true, silent = true })
 map("n", "<A-p>", "\"*p", { noremap = true }) -- system clipboard paste
 
@@ -35,12 +35,12 @@ end, { expr = true })
 -- [[ visual mode keybinds ]] --
 map("v", "<", "<gv", { noremap = true })
 map("v", ">", ">gv", { noremap = true })
-map("v", "<A-j>", ":m .+1<cr>==", { noremap = true, silent = true })
-map("v", "<A-k>", ":m .-2<cr>==", { noremap = true, silent = true })
+map("v", "<A-j>", ":m .+1<cr>==", { noremap = true })
+map("v", "<A-k>", ":m .-2<cr>==", { noremap = true })
 
 -- [[ visual-block mode keybinds ]] --
-map("x", "<A-j>", ":move '>+1<cr>gv-gv", { noremap = true, silent = true })
-map("x", "<A-k>", ":move '<-2<cr>gv-gv", { noremap = true, silent = true })
+map("x", "<A-j>", ":move '>+1<cr>gv-gv", { noremap = true })
+map("x", "<A-k>", ":move '<-2<cr>gv-gv", { noremap = true })
 
 -- [[ multi-mode keybinds ]] --
 map({ "n", "v" }, "p", "\"0p", { noremap = true }) -- non-volatile yank paste
