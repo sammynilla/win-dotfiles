@@ -26,7 +26,7 @@ end
 function default_package_setup(package_id, config)
   local ok, package = pcall(require, package_id)
   if ok then
-    if config ~= nil then
+    if config then
       package.setup(config)
       return
     end
@@ -51,18 +51,22 @@ return packer.startup(function(use)
   use ({ "lewis6991/impatient.nvim" })
 
   -- [[ user interface ]] --
-  use ({ "rebelot/kanagawa.nvim", run = ":luafile lua/colorscheme.lua", })
   use ({
-    "crispgm/nvim-tabline",
+    "rebelot/kanagawa.nvim", as = "colorscheme",
+    run = ":luafile lua/colorscheme.lua",
+  })
+  use ({
+    "crispgm/nvim-tabline", after = "colorscheme",
     config = function() default_package_setup("tabline", {}) end,
   })
   use ({ -- popup menu
     "gelguy/wilder.nvim", event = "CmdlineEnter",
     config = function() require("plugins.configs.wilder") end,
   })
-
-  -- [[ comment ]] --
-  use ({ "tpope/vim-commentary", event = "BufRead", })
+  -- use ({
+  --   "karb94/neoscroll.nvim",
+  --   config = function() default_package_setup("neoscroll", nil) end,
+  -- })
 
   -- [[ syntax ]] --
   use ({
@@ -76,6 +80,7 @@ return packer.startup(function(use)
     "JoosepAlviste/nvim-ts-context-commentstring",
     after = "nvim-treesitter",
   })
+  use ({ "nvim-treesitter/playground", after = "nvim-treesitter", })
   use ({
     "preservim/vim-markdown",
     config = function() require("plugins.configs.markdown") end,
@@ -83,17 +88,14 @@ return packer.startup(function(use)
   use ({ "vim-pandoc/vim-pandoc-syntax" })
 
   -- [[ utilities ]] --
-  use ({ "dstein64/vim-startuptime" })
-  use ({ "ntpeters/vim-better-whitespace" })
   use ({ "rktjmp/highlight-current-n.nvim", event = "CmdlineEnter", })
   use ({
     "windwp/nvim-autopairs", event = "InsertEnter",
-    config = function() default_package_setup("nvim-autopairs", nil) end,
+    config = function() default_package_setup("nvim-autopairs") end,
   })
-
   use ({ -- TODO: look over the configurations for this
     "norcalli/nvim-colorizer.lua", event = "BufEnter",
-    config = function() default_package_setup("colorizer", nil) end,
+    config = function() default_package_setup("colorizer") end,
   })
   use ({
     "ctrlpvim/ctrlp.vim",
@@ -101,66 +103,41 @@ return packer.startup(function(use)
   })
   use ({ -- jump to line numbers
     "nacro90/numb.nvim", event = "CmdlineEnter",
-    config = function() require("numb").setup() end,
+    config = function() default_package_setup("numb") end,
   })
   use ({ "junegunn/limelight.vim", event = "CmdlineEnter", })
 
-  -- [[ lsp and autocompletion ]] --
-  -- use ({
-  --   "williamboman/nvim-lsp-installer",
-  --   config = function()
-  --     local ok, lsp_installer = pcall(require, "nvim-lsp-installer")
-  --     if ok then
-  --       lsp_installer.setup({
-  --         ensure_installed = {
-  --           "bashls",
-  --           "sumneko_lua",
-  --           "cssls",
-  --           "html",
-  --           "jsonls",
-  --         },
-  --         -- automatic_installation = true,
-  --         ui = {
-  --           icons = {
-  --             server_installed = "✓",
-  --             server_pending = "➜",
-  --             server_uninstalled = "✗"
-  --           }
-  --         }
-  --       })
-  --     end
-  --   end,
-  -- })
-  -- use ({
-  --   "neovim/nvim-lspconfig",
-  --   config = function()
-  --     local runtime_path = vim.split(package.path, ";")
-  --     table.insert(runtime_path, "lua/?.lua")
-  --     table.insert(runtime_path, "lua/?/init.lua")
-  --     require("lspconfig").sumneko_lua.setup({
-  --       settings = {
-  --         Lua = {
-  --           runtime = { version = "LuaJIT", path = runtime_path, },
-  --           diagnostics = { globals = { "vim", }, },
-  --           workspace = { library = vim.api.nvim_get_runtime_file("", true), },
-  --           telemetry = { enable = false, },
-  --         }
-  --       }
-  --     })
-  --   end,
-  -- })
+  -- [[ lsp ]] --
+  use ({ "williamboman/nvim-lsp-installer" })
+  use ({ "neovim/nvim-lspconfig" })
+
+  -- [[ comment ]] --
+  use ({ "tpope/vim-commentary", event = "BufRead", })
+
+  -- [[ completion ]] --
+  use ({
+    "hrsh7th/nvim-cmp",
+    config = function() require("plugins.configs.cmp") end,
+  })
+  use ({ "hrsh7th/cmp-nvim-lsp" })
+  use ({ "saadparwaiz1/cmp_luasnip" })
+
+  -- [[ snippets ]] --
+  use ({ "L3MON4D3/LuaSnip" })
 
   -- [[ git ]] --
-  use ({
-    "lewis6991/gitsigns.nvim", event = "BufRead",
-    config = function() require("plugins.configs.gitsigns") end,
-  })
+  use ({ "tpope/vim-fugitive" })
+  use ({ "tpope/vim-rhubarb" })
   use ({
     "junegunn/gv.vim", event = "CmdlineEnter",
     requires = { "tpope/vim-fugitive" },
   })
+  use ({
+    "lewis6991/gitsigns.nvim", event = "BufRead",
+    config = function() require("plugins.configs.gitsigns") end,
+  })
 
-  -- auto-sync if first time running.
+  -- auto-sync when packer first gets bootstrapped
   if PACKER_BOOTSTRAP ~= nil then
     packer.sync()
     PACKER_BOOTSTRAP = nil
