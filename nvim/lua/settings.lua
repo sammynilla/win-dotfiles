@@ -6,7 +6,6 @@ pcall(require, "impatient")
 
 -- disable some built-in plugins that we don't need. increase load times.
 local disabled_plugins = {
-  "gzip",
   "man",
   "gzip",
   "zip",
@@ -47,7 +46,7 @@ vim.o.wrap = false -- don't wrap lines
 vim.o.showbreak = "↪ "
 vim.o.list = true
 vim.o.listchars = "tab:»·,extends:…,precedes:<,extends:>,nbsp:␣,eol:↴"
--- vim.opt.listchars:append("space:·,trail:·")
+vim.opt.listchars:append("trail:·") --"space:·,trail:·")
 
 -- [[ recovery files ]] --
 -- https://medium.com/@Aenon/vim-swap-backup-undo-git-2bf353caa02f

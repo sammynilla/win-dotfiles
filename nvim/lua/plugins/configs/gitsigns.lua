@@ -32,5 +32,6 @@ require("gitsigns").setup({
     topdelete = create_sign_conf("Delete", true),
     changedelete = create_sign_conf("Change"),
   },
+  signcolumn = false,
 })
 
