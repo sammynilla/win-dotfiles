@@ -16,6 +16,7 @@ map({ "n", "i", "v", "x" }, "<Right>", "<nop>")
 map({ "n", "i", "v", "x" }, "<C-z>",   "<nop>")
 map({ "n", "v", "x" }, "<S-K>", "<nop>") -- no man search
 map({ "n", "v", "x" }, "q:", "<nop>") -- don't display old command usage
+map("n", "<C-c>", "<nop>")
 map("n", "<S-Q>", "<nop>") -- no "ex" mode
 map("i", "<ESC>", "<nop>")
 
