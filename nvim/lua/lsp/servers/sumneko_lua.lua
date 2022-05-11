@@ -5,7 +5,8 @@ table.insert(runtime_path, "lua/?/init.lua")
 
 local settings = {
   Lua = {
-    runtime = { version = "LuaJIT", path = runtime_path, },
+    runtime = {
+      version = "LuaJIT", path = runtime_path, },
     diagnostics = { globals = { "vim", }, },
     disable = {
       "lowercase-global",
@@ -21,7 +22,6 @@ local settings = {
 
 local M = {}
 M.setup = function(on_attach, capabilities)
-
   require("lspconfig").sumneko_lua.setup({
     on_attach = function(client, bufnr)
       client.server_capabilities.document_formatting = false
