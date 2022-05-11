@@ -9,7 +9,7 @@ local enabled_options = {
   "no_default_key_mappings",
 }
 
-for _, option in pairs(enabled_options) do
+for _, option in ipairs(enabled_options) do
   vim.g["vim_markdown_" .. option] = 1
 end
 
@@ -21,7 +21,7 @@ local enabled_extensions = {
   -- "json_frontmatter",
 }
 
-for _, extension in pairs(enabled_extensions) do
+for _, extension in ipairs(enabled_extensions) do
   vim.g["vim_markdown_" .. extension] = 1
 end
 

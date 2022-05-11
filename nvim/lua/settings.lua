@@ -39,6 +39,7 @@ vim.o.timeoutlen = 500
 -- [[ files ]] --
 vim.o.encoding = "utf-8"
 vim.o.wrap = false -- don't wrap lines
+vim.opt.whichwrap:append("[]hl") -- move to prev/next line when cursor hits wrap
 vim.o.showbreak = "↪ "
 vim.o.list = true
 vim.o.listchars = "tab:»·,extends:…,precedes:<,extends:>,nbsp:␣,eol:↴"
@@ -56,7 +57,7 @@ vim.o.undofile = true
 vim.o.number = true -- always show line numbers
 vim.o.signcolumn = "yes"
 vim.o.showmode = false -- do not show -- MODE -- in cmdline
-vim.o.cmdheight = 2 -- height of the command line
+vim.o.cmdheight = 1 -- height of the command line
 vim.o.colorcolumn = "80"
 vim.o.cursorline = true
 vim.o.splitright = true
