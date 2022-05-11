@@ -7,14 +7,16 @@ local settings = {
   Lua = {
     runtime = {
       version = "LuaJIT", path = runtime_path, },
-    diagnostics = { globals = { "vim", }, },
-    disable = {
-      "lowercase-global",
-      "undefined-global",
-      "unused-local",
-      "unused-function",
-      "unused-vararg",
-      -- "trailing-space",
+    diagnostics = {
+      globals = { "vim", },
+      disable = {
+        "lowercase-global",
+        "undefined-global",
+        "unused-local",
+        "unused-function",
+        "unused-vararg",
+        "trailing-space",
+      },
     },
     workspace = { library = vim.api.nvim_get_runtime_file("", true), },
   },
