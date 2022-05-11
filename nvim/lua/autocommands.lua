@@ -27,12 +27,6 @@ vim.api.nvim_create_autocmd("BufEnter", {
   group = augroup_common,
 })
 
-vim.api.nvim_create_autocmd("FileType", {
-  command = "setlocal cc=0 wrap linebreak",
-  pattern = { "markdown" },
-  group = augroup_common,
-})
-
 -- [[ plugin auto-commands ]] --
 vim.api.nvim_create_autocmd({ "BufNewFile", "BufFilePre", "BufRead" }, {
   command = "set filetype=markdown.pandoc",
@@ -40,13 +34,21 @@ vim.api.nvim_create_autocmd({ "BufNewFile", "BufFilePre", "BufRead" }, {
   group = vim.api.nvim_create_augroup("pandoc_syntax", {}),
 })
 
+vim.api.nvim_create_autocmd("FileType", {
+  callback = function()
+    vim.api.nvim_win_set_config(0, { border = "single", })
+  end,
+  pattern = { "lsp-installer", },
+  group = vim.api.nvim_create_augroup("lsp_installer", {}),
+})
+
 -- applies highlight at cursor after search
 vim.api.nvim_create_autocmd("CmdlineLeave", {
   callback = function()
     require("highlight_current_n")["/,?"]()
   end,
-  group = vim.api.nvim_create_augroup("ClearSearchHL", {}),
   pattern = "/,\\?",
+  group = vim.api.nvim_create_augroup("ClearSearchHL", {}),
 })
 
 -- auto-compile our packer configuration
