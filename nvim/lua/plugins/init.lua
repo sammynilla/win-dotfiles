@@ -1,5 +1,6 @@
 
 local fn = vim.fn
+local api = vim.api
 
 -- bootstrap
 local PACKER_BOOTSTRAP = nil
@@ -11,7 +12,7 @@ if fn.empty(fn.glob(install_path)) > 0 then
     "https://github.com/wbthomason/packer.nvim",
     install_path,
   })
-  vim.api.nvim_command("packadd packer.nvim")
+  api.nvim_command("packadd packer.nvim")
 end
 
 -- handle edge-case where initial startup happens without a connection
@@ -49,8 +50,12 @@ return packer.startup(function(use)
   use ({ "lewis6991/impatient.nvim" })
 
   -- [[ user interface ]] --
-  -- luafile/source for first run takes cwd into account
-  use ({ "rebelot/kanagawa.nvim", run = ":luafile lua/colorscheme.lua", })
+  use ({
+    "rebelot/kanagawa.nvim",
+    run = function()
+      api.nvim_command("luafile ".. fn.stdpath("config") .. "/lua/colorscheme.lua")
+    end,
+  })
   use ({ "romgrk/fzy-lua-native" })
   -- use ({ "nixprime/cpsm" })
   use ({
