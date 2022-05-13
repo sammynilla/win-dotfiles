@@ -24,7 +24,7 @@ for _, plugin in ipairs(disabled_plugins) do
 end
 
 -- disable providers until we need them. increases checkhealth runtime.
-local disabled_providers = { "python3", "node", "perl", "ruby", }
+local disabled_providers = { "node", "perl", "ruby", }
 for _, provider in ipairs(disabled_providers) do
   vim.g["loaded_" .. provider .. "_provider"] = 0
 end
@@ -39,7 +39,7 @@ vim.o.timeoutlen = 500
 -- [[ files ]] --
 vim.o.encoding = "utf-8"
 vim.o.wrap = false -- don't wrap lines
-vim.opt.whichwrap:append("[]hl") -- move to prev/next line when cursor hits wrap
+-- vim.opt.whichwrap:append("[]hl") -- move to prev/next line when cursor hits wrap
 vim.o.showbreak = "↪ "
 vim.o.list = true
 vim.o.listchars = "tab:»·,extends:…,precedes:<,extends:>,nbsp:␣,eol:↴"

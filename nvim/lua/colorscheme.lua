@@ -4,9 +4,13 @@ if not ok then
   return
 end
 
-local base_colors = require("kanagawa.colors").setup()
+local colors = require("kanagawa.colors").setup()
 local overrides = {
-  Pmenu = { fg = base_colors.fg_menu, bg = base_colors.sumiInk0 },
+  Pmenu = { fg = colors.fg_menu, bg = colors.sumiInk0, },
+  PmenuSel = { fg = colors.fg_menu, bg = colors.sumiInk2, },
+  PmenuThumb = { bg = colors.fg_menu, }, -- scroll bar color
+  -- nvim-cmp fuzzy finder match
+  CmpItemAbbrMatch = { fg = colors.fg_menu, style = "underline,bold",  },
 }
 kanagawa.setup({
   undercurl = false,

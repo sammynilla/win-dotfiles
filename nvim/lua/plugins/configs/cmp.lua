@@ -4,16 +4,12 @@ if not ok then
   return
 end
 
--- local check_backspace = function()
---   local col = vim.fn.col(".") - 1
---   return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
--- end
+local check_backspace = function()
+  local col = vim.fn.col(".") - 1
+  return col == 0 or vim.fn.getline("."):sub(col, col):match("%s") ~= nil
+end
 
 cmp.setup({
-  window = {
-    completion = { scrollbar = "", },
-    documentation = { scrollbar = "", },
-  },
   snippet = {
     expand = function(args) require("luasnip").lsp_expand(args.body) end,
   },
@@ -40,8 +36,8 @@ cmp.setup({
         cmp.select_next_item()
       elseif require("luasnip").expand_or_jumpable() then
         require("luasnip").expand_or_jump()
-      -- elseif check_backspace() then
-      --   fallback()
+      elseif check_backspace() then
+        fallback()
       else
         fallback()
       end
@@ -57,15 +53,19 @@ cmp.setup({
     end, { "i", "s" }),
   }),
   sources = {
-    { name = "nvim_lsp" },
+    { name = "nvim_lsp", group_index = 1, },
     { name = "luasnip" },
-    { name = "buffer" },
+    { name = "buffer", group_index = 2, },
     { name = "nvim_lua" },
   },
   confirm_opts = {
     behavior = cmp.ConfirmBehavior.Replace,
     select = false,
   },
-  completion = { completeopt = "menuone,noinsert" },
+  completion = { completeopt = "menuone,noselect" },
+  experimental = {
+    ghost_text = true,
+    -- ghost_text = { hl_group = "", }
+  },
 })
 

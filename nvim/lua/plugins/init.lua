@@ -1,7 +1,4 @@
 
--- Plugin manager: packer.nvim
--- https://github.com/wbthomason/packer.nvim
-
 local fn = vim.fn
 
 -- bootstrap
@@ -52,32 +49,30 @@ return packer.startup(function(use)
   use ({ "lewis6991/impatient.nvim" })
 
   -- [[ user interface ]] --
+  -- luafile/source for first run takes cwd into account
+  use ({ "rebelot/kanagawa.nvim", run = ":luafile lua/colorscheme.lua", })
+  use ({ "romgrk/fzy-lua-native" })
+  -- use ({ "nixprime/cpsm" })
   use ({
-    "rebelot/kanagawa.nvim", as = "colorscheme",
-    run = ":luafile lua/colorscheme.lua",
-  })
-  use ({
-    "crispgm/nvim-tabline",
-    config = function() default_package_setup("tabline", {}) end,
-  })
-  use ({ -- popup menu
-    "gelguy/wilder.nvim", event = "CmdlineEnter",
+    -- occasionally UpdateRemotePlugins seems to fail? not sure how to get to
+    -- work with deferred loading
+    "gelguy/wilder.nvim",
+    run = function() vim.cmd([[:UpdateRemotePlugins]]) end,
     config = function() require("plugins.configs.wilder") end,
   })
 
   -- [[ syntax ]] --
   use ({
-    "nvim-treesitter/nvim-treesitter",
-    event = { "BufRead", "BufNewFile" },
-    config = function() require("plugins.configs.nvim-treesitter") end,
+    "nvim-treesitter/nvim-treesitter", event = { "BufRead", "BufNewFile" },
     run = function() require("plugins.configs.nvim-treesitter") end,
+    config = function() require("plugins.configs.nvim-treesitter") end,
   })
   use ({ "windwp/nvim-ts-autotag", after = "nvim-treesitter", })
   use ({
     "JoosepAlviste/nvim-ts-context-commentstring",
     after = "nvim-treesitter",
   })
-  use ({ "nvim-treesitter/playground", after = "nvim-treesitter", })
+  -- use ({ "nvim-treesitter/playground", after = "nvim-treesitter", })
   use ({
     "preservim/vim-markdown",
     config = function() require("plugins.configs.markdown") end,
@@ -94,10 +89,10 @@ return packer.startup(function(use)
     "norcalli/nvim-colorizer.lua", event = "BufRead",
     config = function() default_package_setup("colorizer") end,
   })
-  use ({
-    "ctrlpvim/ctrlp.vim",
-    config = function() require("plugins.configs.ctrlp") end,
-  })
+  -- use ({
+  --   "ctrlpvim/ctrlp.vim",
+  --   config = function() require("plugins.configs.ctrlp") end,
+  -- })
   use ({ -- jump to line numbers
     "nacro90/numb.nvim", event = "CmdlineEnter",
     config = function() default_package_setup("numb") end,
@@ -106,18 +101,17 @@ return packer.startup(function(use)
 
   -- [[ lsp ]] --
   use ({
-    "williamboman/nvim-lsp-installer",
-    opt = true,
+    "williamboman/nvim-lsp-installer", opt = true,
     setup = function()
       require("utils").packer_lazy_load("nvim-lsp-installer")
-      vim.defer_fn(function()
-        vim.cmd([[if &ft == "packer" | echo "" | else | silent! e %]])
-      end, 0)
+      -- reload the current file so lsp actually starts for it
+      -- vim.defer_fn(function()
+      --   vim.cmd([[if &ft == "packer" | echo "" | else | silent! e %]])
+      -- end, 0)
     end,
   })
   use ({
-    "neovim/nvim-lspconfig",
-    after = "nvim-lsp-installer",
+    "neovim/nvim-lspconfig", after = "nvim-lsp-installer",
     config = function() require("lsp") end
   })
 
@@ -126,9 +120,7 @@ return packer.startup(function(use)
 
   -- [[ completion ]] --
   use ({
-    "hrsh7th/nvim-cmp",
-    event = "InsertEnter",
-    module = "cmp_nvim_lsp",
+    "hrsh7th/nvim-cmp", event = "InsertEnter", module = "cmp_nvim_lsp",
     config = function() require("plugins.configs.cmp") end,
   })
   use ({ "hrsh7th/cmp-nvim-lsp", after = "cmp-nvim-lua", })
@@ -148,8 +140,8 @@ return packer.startup(function(use)
   })
   use ({
     "lewis6991/gitsigns.nvim", opt = true,
-    config = function() require("plugins.configs.gitsigns") end,
     setup = function() require("utils").packer_lazy_load("gitsigns.nvim") end,
+    config = function() require("plugins.configs.gitsigns") end,
   })
 
   -- auto-sync when packer first gets bootstrapped
