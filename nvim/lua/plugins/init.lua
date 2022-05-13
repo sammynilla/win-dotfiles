@@ -40,7 +40,7 @@ end
 packer.init({
   display = {
     open_fn = function()
-      return require("packer_util").float({ border = "single" })
+      return require("packer.util").float({ border = "single" })
     end,
     prompt_border = "single",
   },
@@ -138,7 +138,7 @@ return packer.startup(function(use)
 
   -- [[ git ]] --
   use ({ "tpope/vim-fugitive" })
-  use ({ "tpope/vim-rhubarb" })
+  -- use ({ "tpope/vim-rhubarb" })
   use ({
     "junegunn/gv.vim", event = "CmdlineEnter",
     requires = { "tpope/vim-fugitive" },
