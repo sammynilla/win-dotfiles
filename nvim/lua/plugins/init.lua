@@ -1,25 +1,30 @@
 
 local fn = vim.fn
-local api = vim.api
+local execute = vim.api.nvim_command
 
 -- bootstrap
 local PACKER_BOOTSTRAP = nil
-local install_path = fn.stdpath("data") .. "/site/pack/packer/start/packer.nvim"
+local install_path = fn.stdpath("data") .. "/site/pack/packer/opt/packer.nvim"
 if fn.empty(fn.glob(install_path)) > 0 then
+  fn.delete(install_path, "rf")
   PACKER_BOOTSTRAP = fn.system({
     "git",
     "clone",
     "https://github.com/wbthomason/packer.nvim",
     install_path,
   })
-  api.nvim_command("packadd packer.nvim")
+  execute("packadd packer.nvim")
 end
+
+-- packer in optional requires the use of packadd to function
+execute("packadd packer.nvim")
 
 -- handle edge-case where initial startup happens without a connection
 local ok, packer = pcall(require, "packer")
 if not ok then
   return
 end
+
 
 function default_package_setup(package_id, config)
   local ok, package = pcall(require, package_id)
@@ -35,25 +40,24 @@ end
 packer.init({
   display = {
     open_fn = function()
-      return require("packer.util").float({ border = "single" })
+      return require("packer_util").float({ border = "single" })
     end,
     prompt_border = "single",
   },
   git = { clone_timeout = 600, },
   autoremove = true, -- remove disabled or unused plugins without a prompt
-  -- compile_on_sync = false,
   compile_path = fn.stdpath("data") .. "/site/plugin/packer_compiled.lua",
 })
 
 return packer.startup(function(use)
-  use ({ "wbthomason/packer.nvim" })
+  use ({ "wbthomason/packer.nvim", opt = true })
   use ({ "lewis6991/impatient.nvim" })
 
   -- [[ user interface ]] --
   use ({
-    "rebelot/kanagawa.nvim",
+    "rebelot/kanagawa.nvim", after = "packer.nvim",
     run = function()
-      api.nvim_command("luafile ".. fn.stdpath("config") .. "/lua/colorscheme.lua")
+      execute("luafile ".. fn.stdpath("config") .. "/lua/colorscheme.lua")
     end,
   })
   use ({ "romgrk/fzy-lua-native" })
@@ -94,10 +98,6 @@ return packer.startup(function(use)
     "norcalli/nvim-colorizer.lua", event = "BufRead",
     config = function() default_package_setup("colorizer") end,
   })
-  -- use ({
-  --   "ctrlpvim/ctrlp.vim",
-  --   config = function() require("plugins.configs.ctrlp") end,
-  -- })
   use ({ -- jump to line numbers
     "nacro90/numb.nvim", event = "CmdlineEnter",
     config = function() default_package_setup("numb") end,
@@ -110,9 +110,9 @@ return packer.startup(function(use)
     setup = function()
       require("utils").packer_lazy_load("nvim-lsp-installer")
       -- reload the current file so lsp actually starts for it
-      -- vim.defer_fn(function()
-      --   vim.cmd([[if &ft == "packer" | echo "" | else | silent! e %]])
-      -- end, 0)
+      vim.defer_fn(function()
+        vim.cmd([[if &ft == "packer" | echo "" | else | silent! e %]])
+      end, 0)
     end,
   })
   use ({
