@@ -54,7 +54,6 @@ wezterm.on(
 )
 
 return {
-  prefer_egl = true,
   default_prog = default_prog,
   set_environment_variables = set_environment_variables,
   use_fancy_tab_bar = false,
