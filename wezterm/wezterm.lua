@@ -1,8 +1,8 @@
 
 local wezterm = require('wezterm')
 
-local default_prog;
-local set_environment_variables = {};
+local default_prog
+local set_environment_variables = {}
 
 -- https://github.com/wez/wezterm/discussions/628
 function recompute_padding(window)
@@ -32,9 +32,11 @@ end
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
   default_prog = {
     "powershell.exe", "-NoLogo", "-NoExit",
-    "-File", "c:/users/samantha/.config/profile.ps1"
+    "-File", os.getenv("XDG_CONFIG_HOME") .. "/profile.ps1"
   }
-elseif wezterm.target_triple == "x86_64-apple-darwin" then
+end
+
+if wezterm.target_triple == "x86_64-apple-darwin" then
   set_environment_variables["prompt"] = ""
   default_prog = {}
 end
@@ -65,7 +67,7 @@ return {
     bottom = 0,
   },
   force_reverse_video_cursor = true,
-  color_scheme_dirs = {"c:/users/samantha/.config/wezterm/colors"},
+  color_scheme_dirs = { os.getenv("XDG_CONFIG_HOME") .. "/wezterm/colors" },
   color_scheme = "kanagawa",
   colors = {
     indexed = {

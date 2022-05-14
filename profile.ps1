@@ -31,19 +31,18 @@ Function ..  { Set-Location -Path .. }
 Function dev { Set-Location -Path "c:\dev-tools\bin" }
 Function xdg { Set-Location -Path $env:XDG_CONFIG_HOME }
 
-# custom utilities
+# tools and utilities
 Function sherb {
   $app_path = "c:\dev-tools\bin\sherb\sherb.exe"
   if (!$args.count) { $args = "-q" }
   & $app_path $args
 }
-
-# tools
 Function nvim {
   $app_path = "c:\dev-tools\bin\nvim_msvc.cmd"
   & $app_path $args
 }
 Function glog { git log --oneline --all --graph --decorate }
+Function neofetch { winfetch }
 
 # user interface
 Function prompt {
