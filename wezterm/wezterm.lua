@@ -1,3 +1,4 @@
+
 local wezterm = require('wezterm')
 
 local default_prog;
@@ -29,14 +30,9 @@ function recompute_padding(window)
 end
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-  -- local branch, stdout, stderr = wezterm.run_child_process({
-  --   "git", "rev-parse", "--abbrev-ref", "HEAD"
-  -- })
-  set_environment_variables["prompt"] = "$E[35m$P $E[36m=>$E[0m "
   default_prog = {
-    "cmd.exe", "/s", "/k",
-    "c:/dev-tools/bin/alias.cmd", "&&",
-    "%userprofile%/scoop/apps/clink/current/clink_x64.exe", "inject", "-q"
+    "powershell.exe", "-NoLogo", "-NoExit",
+    "-File", "c:/users/samantha/.config/profile.ps1"
   }
 elseif wezterm.target_triple == "x86_64-apple-darwin" then
   set_environment_variables["prompt"] = ""
@@ -58,6 +54,7 @@ wezterm.on(
 )
 
 return {
+  prefer_egl = true,
   default_prog = default_prog,
   set_environment_variables = set_environment_variables,
   use_fancy_tab_bar = false,
@@ -71,7 +68,7 @@ return {
   force_reverse_video_cursor = true,
   color_scheme_dirs = {"c:/users/samantha/.config/wezterm/colors"},
   color_scheme = "kanagawa",
-	colors = {
+  colors = {
     indexed = {
       [16] = "#ffa066",
       [17] = "#ff5d62",
@@ -79,3 +76,4 @@ return {
   },
   disable_default_key_bindings = true,
 }
+
