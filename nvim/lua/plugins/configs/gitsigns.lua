@@ -12,7 +12,8 @@ end
 
 local function create_sign_conf(alias, show_count)
   local hl = "GitSigns"..alias
-  local conf = { hl = hl, text = "┃", numhl = hl.."Nr", linehl = hl.."Ln", }
+  local conf = { hl = hl, text = "│", numhl = hl.."Nr", linehl = hl.."Ln", }
+
   if (type(show_count) == "boolean") then
     if show_count ~= nil then
       conf.show_count = show_count
@@ -32,6 +33,5 @@ require("gitsigns").setup({
     topdelete = create_sign_conf("Delete", true),
     changedelete = create_sign_conf("Change"),
   },
-  signcolumn = false,
 })
 
