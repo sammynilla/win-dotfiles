@@ -1,8 +1,17 @@
 
-local wezterm = require('wezterm')
+local wezterm = require("wezterm")
 
-local default_prog
-local set_environment_variables = {}
+if wezterm.target_triple == "x86_64-pc-windows-msvc" then
+  default_prog = {
+    "pwsh.exe", "-NoLogo", "-NoExit",
+    "-File", os.getenv("XDG_CONFIG_HOME") .. "/profile.ps1"
+  }
+end
+
+if wezterm.target_triple == "x86_64-apple-darwin" then
+  set_environment_variables["prompt"] = ""
+  default_prog = {}
+end
 
 -- https://github.com/wez/wezterm/discussions/628
 function recompute_padding(window)
@@ -29,18 +38,6 @@ function recompute_padding(window)
   window:set_config_overrides(overrides)
 end
 
-if wezterm.target_triple == "x86_64-pc-windows-msvc" then
-  default_prog = {
-    "powershell.exe", "-NoLogo", "-NoExit",
-    "-File", os.getenv("XDG_CONFIG_HOME") .. "/profile.ps1"
-  }
-end
-
-if wezterm.target_triple == "x86_64-apple-darwin" then
-  set_environment_variables["prompt"] = ""
-  default_prog = {}
-end
-
 wezterm.on(
   "window-resized",
   function(window, pane)
@@ -56,17 +53,10 @@ wezterm.on(
 )
 
 return {
-  default_prog = default_prog,
-  set_environment_variables = set_environment_variables,
-  use_fancy_tab_bar = false,
-  hide_tab_bar_if_only_one_tab = true,
-  window_padding = {
-    left = 5,
-    right = 5,
-    top = 8,
-    bottom = 0,
-  },
-  force_reverse_video_cursor = true,
+  dpi = 96.0,
+  font_size = 12.0,
+  front_end = "OpenGL",
+  prefer_elg = true,
   color_scheme_dirs = { os.getenv("XDG_CONFIG_HOME") .. "/wezterm/colors" },
   color_scheme = "kanagawa",
   colors = {
@@ -75,6 +65,22 @@ return {
       [17] = "#ff5d62",
     },
   },
+  window_close_confirmation = "NeverPrompt",
+  window_padding = {
+    left = 5,
+    right = 5,
+    top = 8,
+    bottom = 0,
+  },
+  force_reverse_video_cursor = true,
+  hide_tab_bar_if_only_one_tab = true,
+  use_fancy_tab_bar = false,
+  default_prog = default_prog,
   disable_default_key_bindings = true,
+  -- leader = { key = "n", mods = "SUPER", timeout_milliseconds = 2000 },
+  keys = {
+    -- { key = "r", mods = "LEADER", action = "ReloadConfiguration" },
+    { key = "Enter", mods = "ALT", action = "ToggleFullScreen" },
+  }
 }
 

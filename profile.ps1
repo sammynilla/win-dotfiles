@@ -2,9 +2,12 @@
 Remove-Item alias:cls
 Remove-Item alias:erase
 Remove-Item alias:set
-Remove-Item alias:wget # wget installed with scoop
+if ((Get-Host).Version.Major -ne 7) {
+  Remove-Item alias:wget # wget installed with scoop
+}
 
 # initialize external environments
+Import-Module pure-pwsh
 fnm env --use-on-cd | Out-String | Invoke-Expression
 
 # file utilities
@@ -43,15 +46,3 @@ Function nvim {
 }
 Function glog { git log --oneline --all --graph --decorate }
 Function neofetch { winfetch }
-
-# user interface
-Function prompt {
-  $p = $executionContext.SessionState.Path.CurrentLocation
-  $osc7 = ""
-  if ($p.Provider.Name -eq "FileSystem") {
-    $ansi_escape = [char]27
-    $provider_path = $p.ProviderPath -Replace "\\", "/"
-    $osc7 = "$ansi_escape]7;file://${env:COMPUTERNAME}/${provider_path}${ansi_escape}\"
-  }
-  "${osc7}$p$('>' * ($nestedPromptLevel + 1)) => "
-}
