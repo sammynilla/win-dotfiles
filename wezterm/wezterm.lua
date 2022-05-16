@@ -1,4 +1,3 @@
-
 local wezterm = require("wezterm")
 
 if wezterm.target_triple == "x86_64-pc-windows-msvc" then
@@ -13,44 +12,11 @@ if wezterm.target_triple == "x86_64-apple-darwin" then
   default_prog = {}
 end
 
--- https://github.com/wez/wezterm/discussions/628
--- function recompute_padding(window)
---   local window_dims = window:get_dimensions()
---   local overrides = window:get_config_overrides() or {}
---   if not window_dims.is_full_screen then
---     if not overrides.window_padding then
---       return
---     end
---     overrides.window_padding = nil
---   else
---     local third = math.floor(window_dims.pixel_width / 3)
---     local new_padding = {
---       left = third,
---       right = third,
---       top = 0,
---       bottom = 0
---     }
---     if overrides.window_padding and new_padding.left == overrides.window_padding.left then
---       return
---     end
---     overrides.window_padding = new_padding
---   end
---   window:set_config_overrides(overrides)
--- end
-
--- wezterm.on("window-resized", function(window, pane)
---   recompute_padding(window)
--- end)
-
--- wezterm.on("window-config-reloaded", function(window)
---   recompute_padding(window)
--- end)
-
 return {
   dpi = 96.0,
   font_size = 12.0,
   front_end = "OpenGL",
-  prefer_elg = true,
+  prefer_egl = true,
   color_scheme_dirs = { os.getenv("XDG_CONFIG_HOME") .. "/wezterm/colors" },
   color_scheme = "kanagawa",
   colors = {
@@ -67,14 +33,23 @@ return {
     bottom = 0,
   },
   force_reverse_video_cursor = true,
-  hide_tab_bar_if_only_one_tab = true,
+  -- hide_tab_bar_if_only_one_tab = true,
   use_fancy_tab_bar = false,
   default_prog = default_prog,
   disable_default_key_bindings = true,
-  -- leader = { key = "n", mods = "SUPER", timeout_milliseconds = 2000 },
+  leader = { key = "`", },
   keys = {
-    -- { key = "r", mods = "LEADER", action = "ReloadConfiguration" },
+    { key = "Tab", mods = "CTRL", action = wezterm.action { ActivateTabRelative=1 }},
+    { key = "Tab", mods = "CTRL|SHIFT", action = wezterm.action { ActivateTabRelative=-1 }},
     { key = "Enter", mods = "ALT", action = "ToggleFullScreen" },
+    { key = "n", mods = "CTRL|SHIFT", action = "SpawnWindow" },
+    { key = "t", mods = "LEADER", action = wezterm.action { SpawnTab = "CurrentPaneDomain" }},
+    { key = "x", mods = "LEADER", action = wezterm.action { CloseCurrentTab = { confirm = true }}},
+    { key = "1", mods = "LEADER", action = wezterm.action { ActivateTab = 0 }},
+    { key = "2", mods = "LEADER", action = wezterm.action { ActivateTab = 1 }},
+    { key = "3", mods = "LEADER", action = wezterm.action { ActivateTab = 2 }},
+    { key = "4", mods = "LEADER", action = wezterm.action { ActivateTab = 3 }},
+    { key = "5", mods = "LEADER", action = wezterm.action { ActivateTab = 4 }},
+    { key = "`", mods = "LEADER", action = wezterm.action { SendString="`" }},
   }
 }
-
