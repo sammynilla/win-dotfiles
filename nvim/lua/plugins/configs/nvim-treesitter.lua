@@ -4,11 +4,10 @@
 
 -- "c" parser is installed by default
 local installed_languages = {
-  "bash", "cpp", "lua", "markdown", "javascript", "json", "vim", "vue",
-  -- add below this line for testing
+  "astro", "cpp", "css", "javascript", "json", "lua", "markdown", "typescript",
+  "vim", "vue",
 }
 
--- require("nvim-treesitter.install").prefer_git = true
 require("nvim-treesitter.configs").setup({
   ensure_installed = installed_languages,
   highlight = { enable = true, },
@@ -23,4 +22,3 @@ require("nvim-treesitter.configs").setup({
     enable_autocmd = false,
   },
 })
-
