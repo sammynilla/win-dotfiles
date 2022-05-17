@@ -1,9 +1,8 @@
+local _M = {}
 
-local M = {}
+_M.signs = { Error = "", Warn = "", Hint = "", Info = "" }
 
-M.signs = { Error = "", Warn = "", Hint = "", Info = "" }
-
-M.packer_lazy_load = function(plugin, timer)
+_M.packer_lazy_load = function(plugin, timer)
   if plugin then
     timer = timer or 0
     vim.defer_fn(function()
@@ -12,5 +11,4 @@ M.packer_lazy_load = function(plugin, timer)
   end
 end
 
-return M
-
+return _M

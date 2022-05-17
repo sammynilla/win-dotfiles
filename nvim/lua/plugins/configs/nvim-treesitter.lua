@@ -1,9 +1,5 @@
-
--- Plugin: nvim-treesitter
--- https://github.com/nvim-treesitter/nvim-treesitter
-
--- "c" parser is installed by default
 local installed_languages = {
+  -- "c" parser is installed by default
   "astro", "cpp", "css", "javascript", "json", "lua", "markdown", "typescript",
   "vim", "vue",
 }

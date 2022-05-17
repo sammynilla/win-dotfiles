@@ -1,4 +1,3 @@
-
 -- https://neovim.discourse.group/t/introducing-filetype-lua-and-a-call-for-help/1806
 vim.g.do_filetype_lua = 1
 vim.g.did_load_filetypes = 0
@@ -42,8 +41,9 @@ vim.o.wrap = false -- don't wrap lines
 -- vim.opt.whichwrap:append("[]hl") -- move to prev/next line when cursor hits wrap
 vim.o.showbreak = "↪ "
 vim.o.list = true
-vim.o.listchars = "tab:»·,extends:…,precedes:<,extends:>,nbsp:␣,eol:↴"
-vim.opt.listchars:append("trail:·") --"space:·,trail:·")
+vim.o.listchars = "tab:»·,extends:…,precedes:⟨,extends:⟩,nbsp:␣,eol:↴"
+vim.opt.listchars:append("trail:•")
+vim.fn.matchadd("errorMsg", [[\s\+$]]) -- highlight trailing whitespace
 
 -- [[ recovery files ]] --
 -- https://medium.com/@Aenon/vim-swap-backup-undo-git-2bf353caa02f
@@ -83,4 +83,3 @@ vim.o.smartcase = true  -- ignore case if search pattern is all lowercase, case-
 vim.opt.shortmess:append("s") -- dont give search hit bottom messages
 
 require("colorscheme")
-

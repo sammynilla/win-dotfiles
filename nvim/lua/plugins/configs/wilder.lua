@@ -1,4 +1,3 @@
-
 local wilder = require("wilder")
 
 wilder.setup({ modes = { ":" }, enable_cmdline_enter = 1, })
@@ -40,4 +39,3 @@ wilder.set_option("renderer", wilder.renderer_mux({
     max_height = vim.o.pumheight,
   }),
 }))
-

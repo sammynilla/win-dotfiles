@@ -1,4 +1,3 @@
-
 local augroup_common = vim.api.nvim_create_augroup("user_common", {})
 
 vim.api.nvim_create_autocmd("TextYankPost", {
@@ -20,7 +19,7 @@ vim.api.nvim_create_autocmd("BufEnter", {
     if vim.bo.buftype == "help" then
       vim.cmd("wincmd L")
       local nr = vim.api.nvim_get_current_buf()
-      vim.api.nvim_buf_set_keymap(nr, "n", "q", ":q<CR>", { noremap = true, silent = true })
+      vim.api.nvim_buf_set_keymap(nr, "n", "q", ":q<CR>", { noremap = true })
     end
   end,
   pattern = { "*.txt" },
@@ -57,4 +56,3 @@ vim.api.nvim_create_autocmd("BufWritePost", {
   pattern = "lua/plugins/init.lua",
   group = vim.api.nvim_create_augroup("packer", {}),
 })
-

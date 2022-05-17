@@ -1,8 +1,3 @@
-
--- Plugins: vim-markdown, vim-pandoc-syntax
--- https://github.com/preservim/vim-markdown
--- https://github.com/vim-pandoc/vim-pandoc-syntax
-
 -- [[ options ]] -
 local enabled_options = {
   "folding_disabled",
@@ -35,4 +30,3 @@ vim.g.vim_markdown_fenced_languages = {
   "bash=sh",
   "ini=dosini"
 }
-

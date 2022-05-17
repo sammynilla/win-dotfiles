@@ -1,7 +1,3 @@
-
--- Plugin: gitsigns.nvim
--- https://github.com/lewis6991/gitsigns.nvim
-
 local function get_count_chars()
   local chars = { [1] = " ", ['+'] = ">", }
   for index = 2,9 do
@@ -34,4 +30,3 @@ require("gitsigns").setup({
     changedelete = create_sign_conf("Change"),
   },
 })
-

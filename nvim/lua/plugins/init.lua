@@ -1,4 +1,3 @@
-
 local fn = vim.fn
 local execute = vim.api.nvim_command
 
@@ -155,4 +154,3 @@ return packer.startup(function(use)
     PACKER_BOOTSTRAP = nil
   end
 end)
-

@@ -1,4 +1,3 @@
-
 local ok, kanagawa = pcall(require, "kanagawa")
 if not ok then
   return
@@ -35,4 +34,3 @@ catch /^Vim\%((\a\+)\)\=:E185/
   set background=dark
 endtry
 ]])
-

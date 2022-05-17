@@ -1,4 +1,3 @@
-
 local ok, lsp_installer = pcall(require, "nvim-lsp-installer")
 if not ok then
   return
@@ -30,7 +29,6 @@ end
 
 local utils = require("utils")
 for type, icon in pairs(utils.signs) do
-  local hl = "DiagnosticSign"..type
+  local hl = "DiagnosticSign" .. type
   vim.fn.sign_define(hl, { text = icon, texthl = hl, numhl = "" })
 end
-

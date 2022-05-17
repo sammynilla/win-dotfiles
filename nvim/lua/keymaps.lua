@@ -1,5 +1,4 @@
-
-vim.g.mapleader = " "
+vim.g.mapleader = ","
 
 -- https://dev.to/voyeg3r/writing-useful-lua-functions-to-my-neovim-14ki
 local function map(mode, lhs, rhs, opts)
@@ -50,4 +49,3 @@ map({ "v", "x" }, "x", "\"0x") -- non-volatile yank cut
 -- [[ plugin keybinds ]] --
 map("n", "n", function() require("highlight_current_n").n() end)
 map("n", "N", function() require("highlight_current_n").N() end)
-

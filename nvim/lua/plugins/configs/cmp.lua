@@ -1,4 +1,3 @@
-
 local ok, cmp = pcall(require, "cmp")
 if not ok then
   return
@@ -68,4 +67,3 @@ cmp.setup({
     -- ghost_text = { hl_group = "", }
   },
 })
-
