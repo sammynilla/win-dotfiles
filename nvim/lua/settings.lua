@@ -65,7 +65,7 @@ vim.o.splitbelow = true
 
 -- [[ pop-up menu ]] --
 vim.o.pumheight = 15
-vim.o.wildignore = "*.lnk"
+-- vim.o.wildignore = "*.lnk,*.ico" -- not used by wilder?
 vim.o.wildmode = "longest,full"
 vim.o.wildignorecase = true -- ignore case in command completion menu
 vim.opt.shortmess:append("c") -- dont give ins-completion-menu messages
