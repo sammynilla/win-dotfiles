@@ -21,8 +21,8 @@ local settings = {
   },
 }
 
-local M = {}
-M.setup = function(on_attach, capabilities)
+local _M = {}
+_M.setup = function(on_attach, capabilities)
   require("lspconfig").sumneko_lua.setup({
     on_attach = function(client, bufnr)
       client.server_capabilities.document_formatting = false
@@ -34,4 +34,4 @@ M.setup = function(on_attach, capabilities)
   })
 end
 
-return M
+return _M
