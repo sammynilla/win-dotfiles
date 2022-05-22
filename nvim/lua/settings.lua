@@ -77,7 +77,7 @@ vim.o.expandtab = true -- expand tabs to count tabstop n° of spaces
 vim.o.smartindent = true -- insert tabs on the start of a line according to shiftwidth
 
 -- [[ search ]] --
-vim.o.hlsearch = false -- highlight search terms
+-- vim.o.hlsearch = false -- highlight search terms
 vim.o.ignorecase = true -- ignore case when searching with / or ?
 vim.o.smartcase = true  -- ignore case if search pattern is all lowercase, case-sensitive otherwise
 vim.opt.shortmess:append("s") -- dont give search hit bottom messages

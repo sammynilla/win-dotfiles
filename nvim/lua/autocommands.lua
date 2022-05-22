@@ -41,15 +41,6 @@ vim.api.nvim_create_autocmd("FileType", {
   group = vim.api.nvim_create_augroup("lsp_installer", {}),
 })
 
--- applies highlight at cursor after search
-vim.api.nvim_create_autocmd("CmdlineLeave", {
-  callback = function()
-    require("highlight_current_n")["/,?"]()
-  end,
-  pattern = "/,\\?",
-  group = vim.api.nvim_create_augroup("ClearSearchHL", {}),
-})
-
 -- auto-compile our packer configuration
 vim.api.nvim_create_autocmd("BufWritePost", {
   command = "source <afile> | PackerCompile",

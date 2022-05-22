@@ -24,7 +24,6 @@ if not ok then
   return
 end
 
-
 function default_package_setup(package_id, config)
   local ok, package = pcall(require, package_id)
   if ok then
@@ -88,7 +87,7 @@ return packer.startup(function(use)
   use ({ "vim-pandoc/vim-pandoc-syntax" })
 
   -- [[ utilities ]] --
-  use ({ "rktjmp/highlight-current-n.nvim", event = "CmdlineEnter", })
+  use ({ "kevinhwang91/nvim-hlslens", event = "CmdlineEnter", })
   use ({
     "windwp/nvim-autopairs", event = "InsertEnter",
     config = function() default_package_setup("nvim-autopairs") end,
