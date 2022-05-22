@@ -29,7 +29,7 @@ map("n", "<C-Up>",    ":resize -2<cr>", { silent = true })
 map("n", "<C-Right>", ":vertical resize +2<cr>", { silent = true })
 map("n", "<C-s>", ":w<cr>", { silent = true })
 map("n", "<A-p>", "\"*p") -- system clipboard paste
-map("n", "<Leader>l", ":noh<cr>")
+map("n", "<Leader>l", ":noh<cr>", { silent = true })
 
 -- [[ interactive mode keybinds ]] --
 map("i", "kj", "<ESC>")
@@ -49,5 +49,9 @@ map({ "n", "v" }, "P", "\"0p")
 map({ "v", "x" }, "x", "\"0x") -- non-volatile yank cut
 
 -- [[ plugin keybinds ]] --
-map("n", "n", [[:execute("normal! ".v:count1."n")<cr>:lua require("hlslens").start()<cr>]])
-map("n", "N", [[:execute("normal! ".v:count1."N")<cr>:lua require("hlslens").start()<cr>]])
+local hlslens_commands = {
+  [[<cmd>execute("normal! ".v:count1."n")<cr>:lua require("hlslens").start()<cr>]],
+  [[<cmd>execute("normal! ".v:count1."N")<cr>:lua require("hlslens").start()<cr>]],
+}
+map("n", "n", hlslens_commands[1], { silent = true })
+map("n", "N", hlslens_commands[2], { silent = true })
