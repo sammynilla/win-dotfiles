@@ -1,6 +1,6 @@
-vim.api.nvim_create_autocmd("FileType", {
-  callback = function() 
+vim.api.nvim_create_autocmd({ "BufNewFile", "BufFilePre", "BufRead" }, {
+  callback = function()
     vim.bo.cindent = false
   end,
-  pattern = { "c,cpp" },
+  pattern = { "*.c,*.cpp" },
 })
