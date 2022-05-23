@@ -62,10 +62,15 @@ vim.o.colorcolumn = "80"
 vim.o.cursorline = true
 vim.o.splitright = true
 vim.o.splitbelow = true
+vim.o.statusline = ""
+vim.opt.statusline:append("%f") -- filename (F for full path)
+vim.opt.statusline:append("%<%14.{fugitive#statusline()}")
+vim.opt.statusline:append("%<%6.{get(b:,'gitsigns_status','')}")
+vim.opt.statusline:append("%=") -- right align
+vim.opt.statusline:append("%-8.(%l:%c%V%)")
 
 -- [[ pop-up menu ]] --
 vim.o.pumheight = 15
--- vim.o.wildignore = "*.lnk,*.ico" -- not used by wilder?
 vim.o.wildmode = "longest,full"
 vim.o.wildignorecase = true -- ignore case in command completion menu
 vim.opt.shortmess:append("c") -- dont give ins-completion-menu messages
@@ -77,7 +82,6 @@ vim.o.expandtab = true -- expand tabs to count tabstop n° of spaces
 vim.o.smartindent = true -- insert tabs on the start of a line according to shiftwidth
 
 -- [[ search ]] --
--- vim.o.hlsearch = false -- highlight search terms
 vim.o.ignorecase = true -- ignore case when searching with / or ?
 vim.o.smartcase = true  -- ignore case if search pattern is all lowercase, case-sensitive otherwise
 vim.opt.shortmess:append("s") -- dont give search hit bottom messages

@@ -16,7 +16,7 @@ map({ "n", "i", "v", "x" }, "<C-z>",   "<nop>")
 map({ "n", "v", "x" }, "<S-K>", "<nop>") -- no man search
 map("n", "<C-c>", "<nop>")
 map("n", "<S-Q>", "<nop>") -- no "ex" mode
-map("i", "<ESC>", "<nop>")
+map("i", "<Esc>", "<nop>")
 
 -- [[ normal mode keybinds ]]
 map("n", "<C-h>", "<C-w>h")
@@ -29,10 +29,11 @@ map("n", "<C-Up>",    ":resize -2<cr>", { silent = true })
 map("n", "<C-Right>", ":vertical resize +2<cr>", { silent = true })
 map("n", "<C-s>", ":w<cr>", { silent = true })
 map("n", "<A-p>", "\"*p") -- system clipboard paste
-map("n", "<Leader>l", ":noh<cr>", { silent = true })
+map("n", "<Leader><cr>", ":nohl<cr>", { silent = true })
+map("n", "<Leader>ss", ":setlocal spell!<cr>", { silent = true }) -- spellcheck
 
 -- [[ interactive mode keybinds ]] --
-map("i", "kj", "<ESC>")
+map("i", "kj", "<Esc>")
 
 -- [[ visual mode keybinds ]] --
 map("v", "<", "<gv")
@@ -47,6 +48,13 @@ map("x", "<A-k>", ":move '<-2<cr>gv=gv", { silent = true })
 map({ "n", "v" }, "p", "\"0p") -- non-volatile yank paste
 map({ "n", "v" }, "P", "\"0p")
 map({ "v", "x" }, "x", "\"0x") -- non-volatile yank cut
+
+-- [[ terminal mode keybinds ]] --
+map("t", "<Esc>", "<C-\\><C-n>")
+map("t", "<C-h>", "<C-\\><C-n><C-w>h")
+map("t", "<C-j>", "<C-\\><C-n><C-w>j")
+map("t", "<C-k>", "<C-\\><C-n><C-w>k")
+map("t", "<C-l>", "<C-\\><C-n><C-w>l")
 
 -- [[ plugin keybinds ]] --
 local hlslens_commands = {
