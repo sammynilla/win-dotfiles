@@ -63,12 +63,10 @@ vim.o.cursorline = true
 vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.statusline = ""
-vim.opt.statusline:append("%f") -- filename (F for full path)
-vim.opt.statusline:append("%<%14.{fugitive#statusline()}")
-vim.opt.statusline:append("%<%6.{get(b:,'gitsigns_status','')}")
+vim.opt.statusline:append("%f   ") -- filename (F for full path)
+vim.opt.statusline:append("%<%{fugitive#statusline()}  %{get(b:,'gitsigns_status','')}")
 vim.opt.statusline:append("%=") -- right align
 vim.opt.statusline:append("%-8.(%l:%c%V%)")
-
 -- [[ pop-up menu ]] --
 vim.o.pumheight = 15
 vim.o.wildmode = "longest,full"
