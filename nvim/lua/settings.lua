@@ -63,10 +63,14 @@ vim.o.cursorline = true
 vim.o.splitright = true
 vim.o.splitbelow = true
 vim.o.statusline = ""
-vim.opt.statusline:append("%f   ") -- filename (F for full path)
-vim.opt.statusline:append("%<%{fugitive#statusline()}  %{get(b:,'gitsigns_status','')}")
+vim.opt.statusline:append("  %<%f") -- filename (F for full path)
+-- TODO: create a function so that %m doesnt prompt anything when modifiable is off
+vim.opt.statusline:append("%m%r%h%w")
 vim.opt.statusline:append("%=") -- right align
+vim.opt.statusline:append("%{fugitive#statusline()} ")
+vim.opt.statusline:append("%{get(b:,'gitsigns_status','')}  ")
 vim.opt.statusline:append("%-8.(%l:%c%V%)")
+
 -- [[ pop-up menu ]] --
 vim.o.pumheight = 15
 vim.o.wildmode = "longest,full"
