@@ -9,16 +9,20 @@ local overrides = {
   PmenuSel = { fg = colors.fg_menu, bg = colors.sumiInk2, },
   PmenuThumb = { bg = colors.fg_menu, }, -- scroll bar color
   -- nvim-cmp fuzzy finder match
-  CmpItemAbbrMatch = { fg = colors.fg_menu, style = "underline,bold",  },
+  CmpItemAbbrMatch = {
+    fg = colors.fg_menu,
+    underline = true,
+    bold = true,
+  },
 }
 kanagawa.setup({
   undercurl = false,
-  commentStyle = "NONE",
-  -- functionStyle = "NONE",
-  keywordStyle = "NONE",
-  statementStyle = "NONE",
-  -- typeStyle = "NONE",
-  variablebuiltinStyle = "NONE",
+  commentStyle = {},
+  -- functionStyle = {},
+  keywordStyle = {},
+  statementStyle = {},
+  -- typeStyle = {},
+  variablebuiltinStyle = {},
   -- specialReturn = true,
   -- specialException = true,
   dimInactive = true,
